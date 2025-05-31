@@ -1,0 +1,31 @@
+---
+interface Props {
+  as?: keyof HTMLElementTagNameMap;
+  size?: 'sm' | 'md' | 'lg' | 'xl' | 'full';
+  class?: string;
+}
+
+const {
+  as: Element = 'div',
+  size = 'xl',
+  class: className = '',
+} = Astro.props;
+
+const sizes: Record<NonNullable<Props['size']>, string> = {
+  sm: 'max-w-3xl',
+  md: 'max-w-5xl',
+  lg: 'max-w-6xl',
+  xl: 'max-w-7xl',
+  full: 'max-w-full',
+};
+
+const classes = [
+  'mx-auto px-4 sm:px-6 lg:px-8',
+  sizes[size],
+  className,
+].filter(Boolean).join(' ');
+---
+
+<Element class={classes}>
+  <slot />
+</Element> 

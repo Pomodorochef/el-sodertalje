@@ -1,0 +1,450 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import ContactForm from '../components/ContactForm.astro';
+import Hero from '../components/Hero.astro';
+
+const areas = [
+  // Central areas
+  {
+    id: 'centrala-sodertalje',
+    name: 'Centrala Södertälje',
+    description: 'Professionell elservice i Södertälje centrum. Vi erbjuder installation, service och akut hjälp dygnet runt.',
+    image: '/images/areas/centrala-sodertalje.jpg',
+    postalCodes: ['151 XX', '152 XX'],
+  },
+  {
+    id: 'sodertalje-syd',
+    name: 'Södertälje Syd',
+    description: 'Komplett elservice i Södertälje Syd och industriområdet. Specialiserade på både företag och privatpersoner.',
+    image: '/images/areas/sodertalje-syd.jpg',
+    postalCodes: ['152 XX'],
+  },
+  {
+    id: 'sodertalje-nord',
+    name: 'Södertälje Nord',
+    description: 'Pålitlig elservice i norra Södertälje. Snabb service och installation för alla typer av elarbeten.',
+    image: '/images/areas/sodertalje-nord.jpg',
+    postalCodes: ['151 XX'],
+  },
+  
+  // Districts
+  {
+    id: 'jarna',
+    name: 'Järna',
+    description: 'Din lokala elektriker i Järna. Snabb service för både privatpersoner och företag med jour 24/7.',
+    image: '/images/areas/jarna.jpg',
+    postalCodes: ['153 XX'],
+  },
+  {
+    id: 'holo',
+    name: 'Hölö',
+    description: 'Komplett elservice i Hölö med omnejd. Certifierade elektriker för alla typer av elarbeten.',
+    image: '/images/areas/holo.jpg',
+    postalCodes: ['153 92', '153 93'],
+  },
+  {
+    id: 'pershagen',
+    name: 'Pershagen',
+    description: 'Pålitlig elservice i Pershagen. Vi utför allt från mindre reparationer till stora installationer.',
+    image: '/images/areas/pershagen.jpg',
+    postalCodes: ['151 XX'],
+  },
+  {
+    id: 'ostertalje',
+    name: 'Östertälje',
+    description: 'Professionell elservice i Östertälje. Snabb och pålitlig hjälp när du behöver det.',
+    image: '/images/areas/ostertalje.jpg',
+    postalCodes: ['151 XX', '152 XX'],
+  },
+  
+  // Neighborhoods
+  {
+    id: 'brunnsang',
+    name: 'Brunnsäng',
+    description: 'Lokal elektriker i Brunnsäng. Vi erbjuder snabb service och installation med jour dygnet runt.',
+    image: '/images/areas/brunnsang.jpg',
+    postalCodes: ['152 XX'],
+  },
+  {
+    id: 'ronna',
+    name: 'Ronna',
+    description: 'Erfaren elektriker i Ronna. Komplett elservice för både bostäder och företag.',
+    image: '/images/areas/ronna.jpg',
+    postalCodes: ['152 XX'],
+  },
+  {
+    id: 'geneta',
+    name: 'Geneta',
+    description: 'Din elektriker i Geneta. Vi utför alla typer av elarbeten med kvalitet och precision.',
+    image: '/images/areas/geneta.jpg',
+    postalCodes: ['152 XX'],
+  },
+  {
+    id: 'hovsjo',
+    name: 'Hovsjö',
+    description: 'Pålitlig elservice i Hovsjö. Snabb hjälp vid akuta ärenden och planerade installationer.',
+    image: '/images/areas/hovsjo.jpg',
+    postalCodes: ['152 XX'],
+  },
+  {
+    id: 'saltskog',
+    name: 'Saltskog',
+    description: 'Professionell elektriker i Saltskog. Vi erbjuder komplett elservice med kvalitetsgaranti.',
+    image: '/images/areas/saltskog.jpg',
+    postalCodes: ['151 XX'],
+  },
+  {
+    id: 'rosenlund',
+    name: 'Rosenlund',
+    description: 'Lokal elektriker i Rosenlund. Snabb service och installation med fokus på kvalitet.',
+    image: '/images/areas/rosenlund.jpg',
+    postalCodes: ['151 XX'],
+  },
+  {
+    id: 'fornhojden',
+    name: 'Fornhöjden',
+    description: 'Din elektriker i Fornhöjden. Vi utför alla typer av elarbeten med precision och omsorg.',
+    image: '/images/areas/fornhojden.jpg',
+    postalCodes: ['152 XX'],
+  },
+  {
+    id: 'karlhov',
+    name: 'Karlhov',
+    description: 'Pålitlig elservice i Karlhov. Erfarna elektriker för alla dina elbehov.',
+    image: '/images/areas/karlhov.jpg',
+    postalCodes: ['151 XX'],
+  },
+  {
+    id: 'blombacka',
+    name: 'Blombacka',
+    description: 'Professionell elektriker i Blombacka. Vi erbjuder komplett elservice med kvalitetsgaranti.',
+    image: '/images/areas/blombacka.jpg',
+    postalCodes: ['152 XX'],
+  },
+];
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Södertälje El",
+  "description": "Elektriker i Södertälje med omnejd. Vi erbjuder elinstallation, service och akut hjälp 24/7.",
+  "areaServed": areas.map(area => ({
+    "@type": "City",
+    "name": area.name
+  })),
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Södertälje",
+    "addressRegion": "Stockholm",
+    "postalCode": "151 71",
+    "addressCountry": "SE"
+  }
+};
+---
+
+<Layout
+  title="Elektriker Södertälje ⚡ Auktoriserad & Snabb Service | Jour 24/7"
+  description="Behöver du en elektriker i Södertälje? Vi erbjuder snabb & professionell elservice med jour dygnet runt. ✓ Fasta priser ✓ Certifierade elektriker ✓ Kostnadsfri offert"
+>
+  <Header slot="header" />
+
+  <Hero
+    badge="Elektriker med jour 24/7 i Södertälje"
+    title="Behöver du en elektriker i Södertälje?"
+    description="Vi finns nära dig i hela Södertälje med omnejd. Certifierade elektriker med fasta priser och 100% nöjd-kund-garanti. Akut hjälp inom 60 minuter, dygnet runt."
+    image="/images/areas/overview.jpg"
+    showCTA={true}
+    showHighlights={true}
+  />
+
+  <!-- Main Content -->
+  <section class="py-16">
+    <div class="container mx-auto px-4">
+      <!-- Introduction -->
+      <div class="max-w-3xl mx-auto text-center mb-16">
+        <h2 class="text-3xl font-bold mb-6">Professionell elservice i hela Södertälje</h2>
+        <p class="text-lg text-gray-600">
+          Som din lokala elektriker i Södertälje erbjuder vi komplett elservice för både privatpersoner och företag. Med över 20 års erfarenhet och hundratals nöjda kunder kan du lita på att vi levererar högsta kvalitet till rätt pris.
+        </p>
+      </div>
+
+      <!-- Services Overview -->
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+        <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+          <div class="text-primary-600 mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold mb-2">Akut Elservice</h3>
+          <p class="text-gray-600 mb-4">Elfel? Vi är på plats inom 60 minuter i hela Södertälje. Jour dygnet runt, alla dagar.</p>
+          <ul class="space-y-2 text-gray-600">
+            <li class="flex items-center">
+              <svg class="h-5 w-5 text-primary-600 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+              </svg>
+              Jour 24/7
+            </li>
+            <li class="flex items-center">
+              <svg class="h-5 w-5 text-primary-600 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+              </svg>
+              Snabb utryckning
+            </li>
+            <li class="flex items-center">
+              <svg class="h-5 w-5 text-primary-600 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+              </svg>
+              Fast prissättning
+            </li>
+          </ul>
+        </div>
+
+        <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+          <div class="text-primary-600 mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold mb-2">Elinstallation</h3>
+          <p class="text-gray-600 mb-4">Professionell installation av el i både hem och företag. Alltid enligt gällande föreskrifter.</p>
+          <ul class="space-y-2 text-gray-600">
+            <li class="flex items-center">
+              <svg class="h-5 w-5 text-primary-600 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+              </svg>
+              Nyinstallation
+            </li>
+            <li class="flex items-center">
+              <svg class="h-5 w-5 text-primary-600 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+              </svg>
+              Renovering
+            </li>
+            <li class="flex items-center">
+              <svg class="h-5 w-5 text-primary-600 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+              </svg>
+              Fasta priser
+            </li>
+          </ul>
+        </div>
+
+        <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+          <div class="text-primary-600 mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold mb-2">Elbilsladdare</h3>
+          <p class="text-gray-600 mb-4">Auktoriserad installation av laddboxar för alla typer av elbilar. Från 12 995 kr efter ROT.</p>
+          <ul class="space-y-2 text-gray-600">
+            <li class="flex items-center">
+              <svg class="h-5 w-5 text-primary-600 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+              </svg>
+              Installation
+            </li>
+            <li class="flex items-center">
+              <svg class="h-5 w-5 text-primary-600 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+              </svg>
+              ROT-avdrag
+            </li>
+            <li class="flex items-center">
+              <svg class="h-5 w-5 text-primary-600 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+              </svg>
+              5 års garanti
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- USPs -->
+      <div class="bg-gray-50 rounded-2xl p-8 mb-16">
+        <div class="max-w-3xl mx-auto text-center">
+          <h2 class="text-2xl font-bold mb-8">Därför väljer kunder oss</h2>
+          <div class="grid md:grid-cols-4 gap-6">
+            <div class="text-center">
+              <div class="bg-white w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg class="h-8 w-8 text-primary-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <h3 class="font-semibold mb-2">Snabb Service</h3>
+              <p class="text-sm text-gray-600">På plats inom 60 min vid akuta ärenden</p>
+            </div>
+            <div class="text-center">
+              <div class="bg-white w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg class="h-8 w-8 text-primary-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <h3 class="font-semibold mb-2">Certifierade</h3>
+              <p class="text-sm text-gray-600">Auktoriserade & erfarna elektriker</p>
+            </div>
+            <div class="text-center">
+              <div class="bg-white w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg class="h-8 w-8 text-primary-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <h3 class="font-semibold mb-2">Fast Pris</h3>
+              <p class="text-sm text-gray-600">Inga överraskningar på fakturan</p>
+            </div>
+            <div class="text-center">
+              <div class="bg-white w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg class="h-8 w-8 text-primary-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
+                </svg>
+              </div>
+              <h3 class="font-semibold mb-2">Nöjd-Kund-Garanti</h3>
+              <p class="text-sm text-gray-600">100% kundnöjdhet garanterat</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Areas -->
+      <div class="mb-16">
+        <h2 class="text-2xl font-bold mb-8 text-center">Vi täcker hela Södertälje</h2>
+        <div class="grid md:grid-cols-3 gap-8">
+          {areas.slice(0, 6).map(area => (
+            <a
+              href={`/omraden/${area.id}`}
+              class="group bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow"
+            >
+              <div class="aspect-w-16 aspect-h-9">
+                <img
+                  src={area.image}
+                  alt={`Elektriker i ${area.name}`}
+                  class="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"
+                />
+              </div>
+              <div class="p-6">
+                <h3 class="text-xl font-bold mb-2 group-hover:text-primary-600 transition-colors">
+                  {area.name}
+                </h3>
+                <p class="text-gray-600 mb-4">
+                  {area.description}
+                </p>
+                <div class="flex flex-wrap gap-2">
+                  {area.postalCodes.map(code => (
+                    <span class="px-3 py-1 bg-gray-100 rounded-full text-sm text-gray-600">
+                      {code}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div class="bg-primary-900 rounded-2xl p-8 text-center">
+        <h2 class="text-3xl font-bold text-white mb-4">Behöver du en elektriker?</h2>
+        <p class="text-xl text-gray-300 mb-8">
+          Vi erbjuder kostnadsfri offert och snabb service i hela Södertälje
+        </p>
+        <div class="flex flex-wrap justify-center gap-4">
+          <a
+            href="tel:08-123 456 78"
+            class="inline-flex items-center px-6 py-3 rounded-lg bg-white text-primary-900 font-medium hover:bg-gray-100 transition-colors"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+            </svg>
+            Ring 08-123 456 78
+          </a>
+          <a
+            href="#contact"
+            class="inline-flex items-center px-6 py-3 rounded-lg border-2 border-white text-white font-medium hover:bg-white hover:text-primary-900 transition-colors"
+          >
+            Få kostnadsfri offert
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Map Section -->
+  <section class="py-16 bg-gray-50">
+    <div class="container mx-auto px-4">
+      <div class="max-w-3xl mx-auto text-center mb-12">
+        <h2 class="text-3xl font-bold mb-6">Våra serviceområden</h2>
+        <p class="text-lg text-gray-600">
+          Vi täcker hela Södertälje med omnejd och kan snabbt vara på plats när du behöver hjälp
+        </p>
+      </div>
+      
+      <div class="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow-lg">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d130287.77785644832!2d17.4981653!3d59.1953897!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x465f724c89064b13%3A0xbda5d7f509d19e69!2sS%C3%B6dert%C3%A4lje!5e0!3m2!1ssv!2sse!4v1234567890"
+          width="100%"
+          height="100%"
+          style="border:0;"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+        ></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="py-16">
+    <div class="container mx-auto px-4">
+      <div class="max-w-4xl mx-auto">
+        <div class="grid md:grid-cols-2 gap-12">
+          <div>
+            <h2 class="text-3xl font-bold mb-6">Kontakta oss</h2>
+            <p class="text-lg text-gray-600 mb-8">
+              Behöver du hjälp av en elektriker? Vi återkommer med offert inom 2 timmar på vardagar.
+            </p>
+            <div class="space-y-4">
+              <div>
+                <h3 class="font-semibold mb-2">Telefon</h3>
+                <p class="text-lg">
+                  <a href="tel:08-123 456 78" class="text-primary-600 hover:underline">
+                    08-123 456 78
+                  </a>
+                  {' '}(Jour 24/7)
+                </p>
+              </div>
+              <div>
+                <h3 class="font-semibold mb-2">E-post</h3>
+                <p class="text-lg">
+                  <a href="mailto:info@sodertalje-el.se" class="text-primary-600 hover:underline">
+                    info@sodertalje-el.se
+                  </a>
+                </p>
+              </div>
+              <div>
+                <h3 class="font-semibold mb-2">Öppettider</h3>
+                <p class="text-lg">Mån-Fre: 07:00-16:00</p>
+                <p class="text-lg">Jour: Dygnet runt</p>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <ContactForm
+              title="Få kostnadsfri offert"
+              description="Vi hjälper dig i hela Södertälje med omnejd"
+              submitLabel="Skicka förfrågan"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Footer slot="footer" />
+
+  <!-- Schema.org JSON-LD -->
+  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+</Layout> 

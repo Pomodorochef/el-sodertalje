@@ -1,0 +1,68 @@
+---
+interface Props {
+  as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
+  size?: 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl';
+  weight?: 'normal' | 'medium' | 'semibold' | 'bold';
+  tracking?: 'normal' | 'tight' | 'wide';
+  align?: 'left' | 'center' | 'right';
+  color?: 'default' | 'primary' | 'white';
+  class?: string;
+}
+
+const {
+  as: Element = 'h2',
+  size = 'xl',
+  weight = 'bold',
+  tracking = 'normal',
+  align = 'left',
+  color = 'default',
+  class: className = '',
+} = Astro.props;
+
+const sizes: Record<NonNullable<Props['size']>, string> = {
+  sm: 'text-sm',
+  md: 'text-base',
+  lg: 'text-lg',
+  xl: 'text-xl',
+  '2xl': 'text-2xl',
+  '3xl': 'text-3xl sm:text-4xl',
+};
+
+const weights: Record<NonNullable<Props['weight']>, string> = {
+  normal: 'font-normal',
+  medium: 'font-medium',
+  semibold: 'font-semibold',
+  bold: 'font-bold',
+};
+
+const trackings: Record<NonNullable<Props['tracking']>, string> = {
+  normal: 'tracking-normal',
+  tight: 'tracking-tight',
+  wide: 'tracking-wide',
+};
+
+const aligns: Record<NonNullable<Props['align']>, string> = {
+  left: 'text-left',
+  center: 'text-center',
+  right: 'text-right',
+};
+
+const colors: Record<NonNullable<Props['color']>, string> = {
+  default: 'text-gray-900',
+  primary: 'text-primary-600',
+  white: 'text-white',
+};
+
+const classes = [
+  sizes[size],
+  weights[weight],
+  trackings[tracking],
+  aligns[align],
+  colors[color],
+  className,
+].filter(Boolean).join(' ');
+---
+
+<Element class={classes}>
+  <slot />
+</Element> 

@@ -1,0 +1,72 @@
+---
+interface Props {
+  as?: keyof HTMLElementTagNameMap;
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+  weight?: 'normal' | 'medium' | 'semibold' | 'bold';
+  leading?: 'none' | 'tight' | 'snug' | 'normal' | 'relaxed' | 'loose';
+  align?: 'left' | 'center' | 'right';
+  color?: 'default' | 'light' | 'lighter' | 'primary' | 'white';
+  class?: string;
+}
+
+const {
+  as: Element = 'p',
+  size = 'md',
+  weight = 'normal',
+  leading = 'normal',
+  align = 'left',
+  color = 'default',
+  class: className = '',
+} = Astro.props;
+
+const sizes: Record<NonNullable<Props['size']>, string> = {
+  xs: 'text-xs',
+  sm: 'text-sm',
+  md: 'text-base',
+  lg: 'text-lg',
+  xl: 'text-xl',
+};
+
+const weights: Record<NonNullable<Props['weight']>, string> = {
+  normal: 'font-normal',
+  medium: 'font-medium',
+  semibold: 'font-semibold',
+  bold: 'font-bold',
+};
+
+const leadings: Record<NonNullable<Props['leading']>, string> = {
+  none: 'leading-none',
+  tight: 'leading-tight',
+  snug: 'leading-snug',
+  normal: 'leading-normal',
+  relaxed: 'leading-relaxed',
+  loose: 'leading-loose',
+};
+
+const aligns: Record<NonNullable<Props['align']>, string> = {
+  left: 'text-left',
+  center: 'text-center',
+  right: 'text-right',
+};
+
+const colors: Record<NonNullable<Props['color']>, string> = {
+  default: 'text-gray-900',
+  light: 'text-gray-600',
+  lighter: 'text-gray-500',
+  primary: 'text-primary-600',
+  white: 'text-white',
+};
+
+const classes = [
+  sizes[size],
+  weights[weight],
+  leadings[leading],
+  aligns[align],
+  colors[color],
+  className,
+].filter(Boolean).join(' ');
+---
+
+<Element class={classes}>
+  <slot />
+</Element> 

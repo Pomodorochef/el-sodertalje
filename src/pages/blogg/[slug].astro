@@ -1,0 +1,522 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import ContactForm from '../../components/ContactForm.astro';
+import { BLOG_POSTS } from '../../data/blogPosts';
+import type { BlogPost } from '../../data/blogPosts';
+
+export function getStaticPaths() {
+  return BLOG_POSTS.map((post: BlogPost) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": post.title,
+  "description": post.description,
+  "image": `https://elektriker-södertälje.se${post.image}`,
+  "datePublished": post.date,
+  "dateModified": post.date,
+  "author": {
+    "@type": "Person",
+    "name": post.author
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Södertälje El",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://elektriker-södertälje.se/images/logo.png"
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": `https://elektriker-södertälje.se/blogg/${post.id}`
+  },
+  "keywords": post.tags.join(", "),
+  "articleSection": post.category,
+  "timeRequired": post.readTime
+};
+---
+
+<Layout
+  title={`${post.title} | Elektriker Södertälje Guide & Tips`}
+  description={post.description}
+  ogImage={post.image}
+>
+  <Header slot="header" />
+
+  <article class="pt-16">
+    <!-- Hero Section -->
+    <div class="relative">
+      <div class="aspect-w-16 aspect-h-9 md:aspect-h-6 lg:aspect-h-5">
+        <img
+          src={post.image}
+          alt={post.title}
+          class="object-cover w-full h-full"
+        />
+        <div class="absolute inset-0 bg-gradient-to-t from-black/75 to-transparent"></div>
+      </div>
+      
+      <div class="absolute bottom-0 left-0 right-0 p-8">
+        <div class="container mx-auto">
+          <div class="max-w-3xl">
+            <div class="flex flex-wrap items-center gap-4 text-sm text-white/80 mb-4">
+              <time datetime={post.date} class="flex items-center">
+                <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+                {new Date(post.date).toLocaleDateString('sv-SE', {
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric',
+                })}
+              </time>
+              <span>•</span>
+              <span class="flex items-center">
+                <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                {post.readTime}
+              </span>
+              <span>•</span>
+              <a 
+                href={`/blogg/kategori/${post.category.toLowerCase()}`}
+                class="hover:text-white"
+              >
+                {post.category}
+              </a>
+            </div>
+            
+            <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">
+              {post.title}
+            </h1>
+            
+            <div class="flex items-center space-x-4">
+              <div class="flex items-center space-x-2">
+                <div class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center">
+                  <span class="text-gray-600 font-medium">
+                    {post.author.split(' ')[0][0]}{post.author.split(' ')[1][0]}
+                  </span>
+                </div>
+                <span class="text-white">{post.author}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="py-16">
+      <div class="container mx-auto px-4">
+        <div class="grid md:grid-cols-12 gap-12">
+          <!-- Main Content -->
+          <div class="md:col-span-8">
+            <div class="prose prose-lg max-w-none">
+              {post.id === 'elbilsladdare-guide-sodertalje' && (
+                <>
+                  <h2>Installation av elbilsladdare i Södertälje</h2>
+                  <p>
+                    Med den växande populariteten av elbilar blir det allt viktigare att ha en pålitlig laddningslösning hemma. 
+                    Som certifierade elektriker i Södertälje hjälper vi dig med allt från val av laddbox till installation och driftsättning.
+                  </p>
+
+                  <h3>Fördelar med en professionellt installerad laddbox</h3>
+                  <ul>
+                    <li>Upp till 10 gånger snabbare laddning än via vanligt vägguttag</li>
+                    <li>Säker laddning med inbyggda skyddsfunktioner</li>
+                    <li>Smart styrning och övervakning via app</li>
+                    <li>Möjlighet till lastbalansering</li>
+                    <li>Framtidssäkrad installation</li>
+                  </ul>
+
+                  <h3>Kostnader för installation av elbilsladdare</h3>
+                  <p>
+                    Totalkostnaden för en installation består av flera delar:
+                  </p>
+                  <ul>
+                    <li>Laddbox: 5 000-15 000 kr</li>
+                    <li>Installation: 5 000-15 000 kr</li>
+                    <li>Eventuell uppgradering av elcentral</li>
+                    <li>ROT-avdrag möjligt på arbetskostnaden</li>
+                  </ul>
+
+                  <h3>Olika typer av laddboxar</h3>
+                  <p>
+                    Vi hjälper dig välja rätt laddbox baserat på din bil och dina behov:
+                  </p>
+                  <ul>
+                    <li><strong>Enfasladdare (3,7-7,4 kW)</strong> - Passar plug-in hybrider och mindre elbilar</li>
+                    <li><strong>Trefasladdare (11-22 kW)</strong> - För snabbare laddning av större elbilar</li>
+                  </ul>
+
+                  <h3>Viktigt att tänka på</h3>
+                  <ul>
+                    <li>Kontrollera din bils laddkapacitet</li>
+                    <li>Se över din huvudsäkring</li>
+                    <li>Välj en framtidssäkrad lösning</li>
+                    <li>Anlita alltid certifierad elektriker</li>
+                  </ul>
+
+                  <h2>Varför välja oss för installation?</h2>
+                  <ul>
+                    <li>Certifierade installatörer med stor erfarenhet</li>
+                    <li>Kostnadsfri besiktning och offert</li>
+                    <li>5 års garanti på installationen</li>
+                    <li>Support efter installation</li>
+                    <li>Snabb installation - ofta inom en vecka</li>
+                  </ul>
+
+                  <h2>Kontakta oss för kostnadsfri offert</h2>
+                  <p>
+                    Vill du veta mer om installation av elbilsladdare i Södertälje? 
+                    Kontakta oss för en kostnadsfri offert och besiktning. Vi hjälper dig hitta den bästa lösningen för ditt hem.
+                  </p>
+                </>
+              )}
+
+              {post.id === 'elsakerhet-hemmet-guide' && (
+                <>
+                  <h2>10 Viktiga Tips för Elsäkerhet i Hemmet</h2>
+                  <p>
+                    Som certifierade elektriker i Södertälje ser vi dagligen exempel på bristande elsäkerhet. 
+                    Här är våra bästa tips för att göra ditt hem säkrare.
+                  </p>
+
+                  <h3>1. Kontrollera jordfelsbrytaren regelbundet</h3>
+                  <p>
+                    Testa jordfelsbrytaren minst två gånger per år genom att trycka på testknappen. 
+                    En fungerande jordfelsbrytare är din viktigaste livförsäkring när det gäller el.
+                  </p>
+
+                  <h3>2. Se över dina eluttag</h3>
+                  <ul>
+                    <li>Leta efter missfärgningar och värmeskador</li>
+                    <li>Kontrollera att uttagen sitter fast ordentligt</li>
+                    <li>Byt ut spruckna eller skadade uttag</li>
+                  </ul>
+
+                  <h3>3. Undvik överbelastning</h3>
+                  <p>
+                    Använd inte för många grenuttag på samma krets. 
+                    Särskilt viktigt vid användning av effektkrävande apparater som:
+                  </p>
+                  <ul>
+                    <li>Spisar och ugnar</li>
+                    <li>Tvättmaskiner och torktumlare</li>
+                    <li>Elbilsladdare</li>
+                  </ul>
+
+                  <h3>4. Rätt belysning på rätt plats</h3>
+                  <ul>
+                    <li>Använd rätt wattal i lampor</li>
+                    <li>Kontrollera att lampskärmar har tillräckligt avstånd till glödlampor</li>
+                    <li>Använd LED-lampor för bättre energieffektivitet och säkerhet</li>
+                  </ul>
+
+                  <h3>5. Var försiktig i våtutrymmen</h3>
+                  <p>
+                    Särskilda regler gäller för el i badrum och andra våtutrymmen:
+                  </p>
+                  <ul>
+                    <li>Använd endast IP-klassade produkter</li>
+                    <li>Respektera säkerhetsavstånd till vatten</li>
+                    <li>Låt alltid behörig elektriker installera uttag</li>
+                  </ul>
+
+                  <h2>När ska du kontakta elektriker?</h2>
+                  <p>
+                    Kontakta alltid en certifierad elektriker om du upptäcker:
+                  </p>
+                  <ul>
+                    <li>Återkommande säkringar som löser ut</li>
+                    <li>Missfärgade eller varma uttag</li>
+                    <li>Konstiga ljud eller lukter från elutrustning</li>
+                    <li>Stickproppar som känns varma</li>
+                  </ul>
+
+                  <h2>Boka elsäkerhetsbesiktning</h2>
+                  <p>
+                    Vi erbjuder professionell elsäkerhetsbesiktning i Södertälje med omnejd. 
+                    Kontakta oss för mer information eller boka en besiktning redan idag.
+                  </p>
+                </>
+              )}
+
+              {post.id === 'smart-belysning-energibesparing' && (
+                <>
+                  <h2>Smart belysning: Modern komfort och energibesparing</h2>
+                  <p>
+                    Smart belysning är mer än bara bekvämlighet - det handlar om energieffektivitet, 
+                    säkerhet och möjligheten att skapa rätt atmosfär i ditt hem.
+                  </p>
+
+                  <h3>Fördelar med smart belysning</h3>
+                  <ul>
+                    <li>Upp till 80% lägre energiförbrukning</li>
+                    <li>Automatisk styrning baserad på tid och rörelse</li>
+                    <li>Fjärrstyrning via mobilen</li>
+                    <li>Ökad säkerhet med simulerad närvaro</li>
+                    <li>Möjlighet till olika ljusscener</li>
+                  </ul>
+
+                  <h3>Populära smarta belysningssystem</h3>
+                  <p>
+                    Det finns flera olika system att välja mellan:
+                  </p>
+                  <ul>
+                    <li><strong>Philips Hue</strong> - Stort ekosystem med många möjligheter</li>
+                    <li><strong>IKEA TRÅDFRI</strong> - Prisvärt alternativ med bra grundfunktioner</li>
+                    <li><strong>Zigbee-baserade system</strong> - Öppet protokoll med många tillverkare</li>
+                  </ul>
+
+                  <h3>Installation och setup</h3>
+                  <p>
+                    För bästa resultat rekommenderar vi professionell installation:
+                  </p>
+                  <ul>
+                    <li>Korrekt dimensionering av systemet</li>
+                    <li>Säker installation av styrenheter</li>
+                    <li>Integration med befintlig installation</li>
+                    <li>Programmering och driftsättning</li>
+                  </ul>
+
+                  <h2>Energibesparing med smart belysning</h2>
+                  <p>
+                    Genom att kombinera LED-teknik med smart styrning kan du spara betydande energi:
+                  </p>
+                  <ul>
+                    <li>Automatisk släckning när ingen är i rummet</li>
+                    <li>Dagsljusanpassning</li>
+                    <li>Schemaläggning</li>
+                    <li>Behovsstyrd belysning</li>
+                  </ul>
+
+                  <h2>Kontakta oss för smart belysning</h2>
+                  <p>
+                    Vi hjälper dig med allt från planering till installation av smart belysning i Södertälje. 
+                    Kontakta oss för en kostnadsfri konsultation.
+                  </p>
+                </>
+              )}
+
+              {post.id === 'jordfelsbrytare-guide' && (
+                <>
+                  <h2>Jordfelsbrytare: Din livförsäkring i elsystemet</h2>
+                  <p>
+                    Jordfelsbrytaren är en av de viktigaste säkerhetskomponenterna i ditt hem. 
+                    Den kan bokstavligen vara skillnaden mellan liv och död vid elolyckor.
+                  </p>
+
+                  <h3>Vad är en jordfelsbrytare?</h3>
+                  <p>
+                    En jordfelsbrytare är en automatisk brytare som snabbt bryter strömmen vid:
+                  </p>
+                  <ul>
+                    <li>Strömläckage till jord</li>
+                    <li>Personkontakt med strömförande delar</li>
+                    <li>Isolationsfel i elektrisk utrustning</li>
+                  </ul>
+
+                  <h3>Lagkrav på jordfelsbrytare</h3>
+                  <p>
+                    Sedan 2000 finns det olika krav på jordfelsbrytare:
+                  </p>
+                  <ul>
+                    <li>Obligatoriskt i nya installationer</li>
+                    <li>Krav vid utomhusinstallationer</li>
+                    <li>Särskilda krav för badrum och våtutrymmen</li>
+                  </ul>
+
+                  <h3>Olika typer av jordfelsbrytare</h3>
+                  <ul>
+                    <li><strong>Typ A</strong> - För de flesta hushållsinstallationer</li>
+                    <li><strong>Typ B</strong> - För speciell utrustning (t.ex. elbilsladdare)</li>
+                    <li><strong>Selektiva jordfelsbrytare</strong> - För seriekoppling</li>
+                  </ul>
+
+                  <h2>Underhåll och kontroll</h2>
+                  <p>
+                    För att säkerställa funktionen bör du:
+                  </p>
+                  <ul>
+                    <li>Testa jordfelsbrytaren var 6:e månad</li>
+                    <li>Dokumentera testerna</li>
+                    <li>Kontakta elektriker vid problem</li>
+                  </ul>
+
+                  <h2>När behöver du byta jordfelsbrytare?</h2>
+                  <p>
+                    Överväg byte av jordfelsbrytare om:
+                  </p>
+                  <ul>
+                    <li>Den är äldre än 10 år</li>
+                    <li>Den löser ut ofta utan orsak</li>
+                    <li>Testknappen inte fungerar</li>
+                  </ul>
+
+                  <h2>Kontakta oss för jordfelsbrytare</h2>
+                  <p>
+                    Vi hjälper dig med installation och kontroll av jordfelsbrytare i Södertälje. 
+                    Kontakta oss för en säker installation enligt gällande regler.
+                  </p>
+                </>
+              )}
+
+              {post.id === 'elrenovering-tips' && (
+                <>
+                  <h2>Elrenovering: Guide för husägare i Södertälje</h2>
+                  <p>
+                    Planerar du att renovera ditt hem? Elen är en kritisk del som kräver särskild 
+                    uppmärksamhet. Här är vår kompletta guide till elrenovering.
+                  </p>
+
+                  <h3>När behövs elrenovering?</h3>
+                  <p>
+                    Överväg elrenovering om:
+                  </p>
+                  <ul>
+                    <li>Huset är äldre än 25 år</li>
+                    <li>Du har återkommande problem med säkringar</li>
+                    <li>Du planerar större renovering</li>
+                    <li>Du vill installera moderna elsystem</li>
+                  </ul>
+
+                  <h3>Vanliga åtgärder vid elrenovering</h3>
+                  <ul>
+                    <li>Byte av elcentral</li>
+                    <li>Installation av jordfelsbrytare</li>
+                    <li>Nya ledningar och uttag</li>
+                    <li>Uppgradering till 3-fas</li>
+                    <li>Installation av smart hem-system</li>
+                  </ul>
+
+                  <h3>Kostnader för elrenovering</h3>
+                  <p>
+                    Kostnaden varierar beroende på omfattning:
+                  </p>
+                  <ul>
+                    <li>Ny elcentral: 15 000-25 000 kr</li>
+                    <li>Omdragning av ledningar: 500-1000 kr/m²</li>
+                    <li>Nya uttag och strömbrytare: 1000-2000 kr/st</li>
+                    <li>ROT-avdrag kan användas</li>
+                  </ul>
+
+                  <h2>Planering av elrenovering</h2>
+                  <p>
+                    En bra planering är avgörande:
+                  </p>
+                  <ul>
+                    <li>Besiktning av befintlig installation</li>
+                    <li>Kartläggning av framtida behov</li>
+                    <li>Prioritering av åtgärder</li>
+                    <li>Tidsplan och budget</li>
+                  </ul>
+
+                  <h2>Kontakta oss för elrenovering</h2>
+                  <p>
+                    Vi hjälper dig med allt från besiktning till färdig installation i Södertälje. 
+                    Kontakta oss för en kostnadsfri konsultation om din elrenovering.
+                  </p>
+                </>
+              )}
+            </div>
+
+            <!-- Tags -->
+            <div class="mt-8">
+              <div class="flex flex-wrap gap-2">
+                {post.tags.map((tag: string) => (
+                  <a
+                    href={`/blogg/tag/${tag.toLowerCase()}`}
+                    class="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm hover:bg-gray-200"
+                  >
+                    #{tag}
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            <!-- Author Bio -->
+            <div class="mt-12 p-6 bg-gray-50 rounded-lg">
+              <div class="flex items-center space-x-4">
+                <div class="w-16 h-16 rounded-full bg-gray-200 flex items-center justify-center">
+                  <span class="text-xl font-medium text-gray-600">
+                    {post.author.split(' ')[0][0]}{post.author.split(' ')[1][0]}
+                  </span>
+                </div>
+                <div>
+                  <h3 class="text-lg font-bold">{post.author}</h3>
+                  <p class="text-gray-600">
+                    Certifierad elektriker med över 15 års erfarenhet. 
+                    Expert inom {post.category.toLowerCase()} och elinstallationer.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sidebar -->
+          <div class="md:col-span-4">
+            <div class="sticky top-24 space-y-8">
+              <!-- Table of Contents -->
+              <div class="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
+                <h3 class="text-lg font-bold mb-4">Innehåll</h3>
+                <nav class="space-y-2">
+                  <a href="#" class="block text-gray-600 hover:text-primary-600">Översikt</a>
+                  <a href="#" class="block text-gray-600 hover:text-primary-600">Fördelar</a>
+                  <a href="#" class="block text-gray-600 hover:text-primary-600">Kostnader</a>
+                  <a href="#" class="block text-gray-600 hover:text-primary-600">Installation</a>
+                </nav>
+              </div>
+
+              <!-- Related Posts -->
+              <div class="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
+                <h3 class="text-lg font-bold mb-4">Relaterade artiklar</h3>
+                <div class="space-y-4">
+                  {BLOG_POSTS.filter((p: BlogPost) => p.id !== post.id && p.category === post.category).slice(0, 3).map((relatedPost: BlogPost) => (
+                    <a
+                      href={`/blogg/${relatedPost.id}`}
+                      class="block hover:bg-gray-50 rounded-lg p-4 transition-colors"
+                    >
+                      <h4 class="font-medium text-gray-900 mb-1">
+                        {relatedPost.title}
+                      </h4>
+                      <p class="text-sm text-gray-500">
+                        {relatedPost.description.slice(0, 100)}...
+                      </p>
+                    </a>
+                  ))}
+                </div>
+              </div>
+
+              <!-- Contact Form -->
+              <div class="bg-gray-50 rounded-lg p-6">
+                <h3 class="text-lg font-bold mb-4">Behöver du hjälp?</h3>
+                <p class="text-gray-600 mb-6">
+                  Kontakta oss för en kostnadsfri konsultation om {post.category.toLowerCase()}.
+                </p>
+                <ContactForm
+                  title="Få kostnadsfri offert"
+                  description={`Expert på ${post.category.toLowerCase()}`}
+                  submitLabel="Skicka förfrågan"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <Footer slot="footer" />
+
+  <!-- Schema.org JSON-LD -->
+  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+</Layout> 

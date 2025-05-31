@@ -1,0 +1,173 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+  submitLabel?: string;
+}
+
+const {
+  title = 'Kontakta oss',
+  description = 'Fyll i formuläret så återkommer vi inom 24 timmar.',
+  submitLabel = 'Skicka meddelande',
+} = Astro.props;
+---
+
+<div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 sm:p-8">
+  {title && <h3 class="text-2xl font-bold text-gray-900 mb-2">{title}</h3>}
+  {description && <p class="text-gray-600 mb-6">{description}</p>}
+  
+  <form action="/api/contact" method="POST" class="space-y-6">
+    <div class="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8">
+      <!-- Name -->
+      <div class="sm:col-span-2">
+        <label for="name" class="block text-sm font-medium text-gray-700">
+          Namn
+        </label>
+        <div class="mt-1">
+          <input
+            type="text"
+            name="name"
+            id="name"
+            autocomplete="name"
+            required
+            class="block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500"
+          />
+        </div>
+      </div>
+
+      <!-- Email -->
+      <div>
+        <label for="email" class="block text-sm font-medium text-gray-700">
+          E-post
+        </label>
+        <div class="mt-1">
+          <input
+            type="email"
+            name="email"
+            id="email"
+            autocomplete="email"
+            required
+            class="block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500"
+          />
+        </div>
+      </div>
+
+      <!-- Phone -->
+      <div>
+        <label for="phone" class="block text-sm font-medium text-gray-700">
+          Telefon
+        </label>
+        <div class="mt-1">
+          <input
+            type="tel"
+            name="phone"
+            id="phone"
+            autocomplete="tel"
+            required
+            class="block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500"
+          />
+        </div>
+      </div>
+
+      <!-- Service Type -->
+      <div class="sm:col-span-2">
+        <label for="service" class="block text-sm font-medium text-gray-700">
+          Typ av tjänst
+        </label>
+        <div class="mt-1">
+          <select
+            id="service"
+            name="service"
+            required
+            class="block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500"
+          >
+            <option value="">Välj tjänst</option>
+            <option value="installation">Elinstallation</option>
+            <option value="repair">Reparation</option>
+            <option value="emergency">Akut hjälp</option>
+            <option value="inspection">Besiktning</option>
+            <option value="ev-charger">Elbilsladdare</option>
+            <option value="other">Övrigt</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Message -->
+      <div class="sm:col-span-2">
+        <label for="message" class="block text-sm font-medium text-gray-700">
+          Meddelande
+        </label>
+        <div class="mt-1">
+          <textarea
+            id="message"
+            name="message"
+            rows="4"
+            required
+            class="block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500"
+          ></textarea>
+        </div>
+      </div>
+
+      <!-- Privacy Policy -->
+      <div class="sm:col-span-2">
+        <div class="flex items-start">
+          <div class="flex-shrink-0">
+            <input
+              id="privacy"
+              name="privacy"
+              type="checkbox"
+              required
+              class="h-4 w-4 rounded border-gray-300 text-primary-600 focus:ring-primary-500"
+            />
+          </div>
+          <div class="ml-3">
+            <p class="text-sm text-gray-500">
+              Jag godkänner att mina uppgifter sparas enligt
+              <a href="/integritetspolicy" class="font-medium text-primary-600 hover:text-primary-500">
+                integritetspolicyn
+              </a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sm:col-span-2">
+      <button
+        type="submit"
+        class="btn-primary w-full justify-center"
+      >
+        {submitLabel}
+      </button>
+    </div>
+  </form>
+</div>
+
+<script>
+  // Form submission handler
+  const form = document.querySelector('form');
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target as HTMLFormElement);
+    const data = Object.fromEntries(formData);
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        window.location.href = '/tack';
+      } else {
+        throw new Error('Something went wrong');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      alert('Ett fel uppstod. Försök igen senare eller ring oss direkt.');
+    }
+  });
+</script>

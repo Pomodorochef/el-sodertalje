@@ -1,0 +1,92 @@
+---
+interface Props {
+  apiKey: string;
+}
+
+const { apiKey } = Astro.props;
+
+// Service area coordinates
+const serviceAreas = [
+  { name: 'Centrala Södertälje', lat: 59.1954, lng: 17.6255 },
+  { name: 'Södertälje Syd', lat: 59.1654, lng: 17.6455 },
+  { name: 'Södertälje Nord', lat: 59.2154, lng: 17.6155 },
+  { name: 'Järna', lat: 59.0904, lng: 17.5671 },
+  { name: 'Hölö', lat: 59.0234, lng: 17.5385 },
+  { name: 'Pershagen', lat: 59.1654, lng: 17.6655 },
+  { name: 'Östertälje', lat: 59.1954, lng: 17.6555 },
+  { name: 'Brunnsäng', lat: 59.1854, lng: 17.6155 },
+  { name: 'Ronna', lat: 59.1954, lng: 17.6055 },
+  { name: 'Geneta', lat: 59.1854, lng: 17.5955 },
+  { name: 'Hovsjö', lat: 59.1754, lng: 17.5855 },
+  { name: 'Saltskog', lat: 59.1854, lng: 17.6355 },
+  { name: 'Rosenlund', lat: 59.2054, lng: 17.6455 },
+  { name: 'Fornhöjden', lat: 59.1754, lng: 17.6555 },
+  { name: 'Karlhov', lat: 59.1954, lng: 17.6455 },
+  { name: 'Blombacka', lat: 59.1854, lng: 17.6255 }
+];
+---
+
+<div class="w-full h-[500px] rounded-lg overflow-hidden shadow-sm" id="map"></div>
+
+<script define:vars={{ apiKey, serviceAreas }}>
+  // Initialize and add the map
+  function initMap() {
+    // Center on Södertälje
+    const sodertalje = { lat: 59.1954, lng: 17.6255 };
+    
+    // Create the map
+    const map = new google.maps.Map(document.getElementById("map"), {
+      zoom: 11,
+      center: sodertalje,
+      styles: [
+        {
+          featureType: "all",
+          elementType: "labels.text.fill",
+          stylers: [{ color: "#6B7280" }]
+        },
+        {
+          featureType: "water",
+          elementType: "geometry",
+          stylers: [{ color: "#E5E7EB" }]
+        }
+      ]
+    });
+
+    // Add markers for each service area
+    serviceAreas.forEach(area => {
+      const marker = new google.maps.Marker({
+        position: { lat: area.lat, lng: area.lng },
+        map: map,
+        title: area.name,
+        icon: {
+          path: google.maps.SymbolPath.CIRCLE,
+          scale: 8,
+          fillColor: "#10B981",
+          fillOpacity: 1,
+          strokeColor: "#065F46",
+          strokeWeight: 2,
+        }
+      });
+
+      // Add info window
+      const infowindow = new google.maps.InfoWindow({
+        content: `<div class="p-2"><strong>${area.name}</strong></div>`
+      });
+
+      marker.addListener("click", () => {
+        infowindow.open(map, marker);
+      });
+    });
+  }
+
+  // Load Google Maps API
+  if (typeof google === 'undefined') {
+    const script = document.createElement('script');
+    script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&callback=initMap`;
+    script.async = true;
+    script.defer = true;
+    document.head.appendChild(script);
+  } else {
+    initMap();
+  }
+</script> 

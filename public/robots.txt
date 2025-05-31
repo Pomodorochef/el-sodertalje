@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /tack
+
+Sitemap: https://elektriker-södertälje.se/sitemap.xml

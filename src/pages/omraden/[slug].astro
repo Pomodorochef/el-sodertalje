@@ -1,0 +1,1340 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import ContactForm from '../../components/ContactForm.astro';
+import Hero from '../../components/Hero.astro';
+import { type Area, type Service, type SchemaData, type SchemaOffer, createArea } from '../../lib/areas';
+import { generateAreaContent } from '../../lib/areaContent';
+
+interface Props {
+  area: Area;
+}
+
+export async function getStaticPaths() {
+  const areas: Area[] = [
+    // Central areas
+    createArea({
+      id: 'centrala-sodertalje',
+      name: 'Centrala Södertälje',
+      ...generateAreaContent({
+        name: 'Centrala Södertälje',
+        postalCodes: ['151 XX', '152 XX'],
+        neighborhoods: [
+          'Södertälje Centrum',
+          'Gamla Staden',
+          'Mariekälla',
+          'Västergård',
+          'Badparken',
+          'Blombacka',
+          'Hovsjö',
+          'Saltskog',
+          'Södertälje Södra',
+          'Scaniaområdet',
+          'Gläntan'
+        ],
+        landmarks: [
+          'Södertälje Centrum Station',
+          'Södertälje Stadshus',
+          'Tom Tits Experiment',
+          'Södertälje Sjukhus',
+          'Marenplan',
+          'Södertälje Hamn',
+          'Torekällberget'
+        ]
+      }),
+      image: '/images/areas/centrala-sodertalje.jpg',
+      postalCodes: ['151 XX', '152 XX'],
+      services: [
+        {
+          name: 'Akut Elservice',
+          description: 'Snabb hjälp inom 60 minuter vid akuta elfel.',
+          price: 'Från 895 kr/timme',
+        },
+        {
+          name: 'Elinstallation',
+          description: 'Professionell installation med ROT-avdrag.',
+          price: 'Fast pris enligt offert',
+        },
+        {
+          name: 'Elbilsladdare',
+          description: 'Komplett installation av laddbox.',
+          price: 'Från 12 995 kr efter ROT',
+        },
+        {
+          name: 'Företagstjänster',
+          description: 'Skräddarsydda lösningar för företag.',
+          price: 'Enligt serviceavtal',
+        },
+      ],
+      type: 'central'
+    }),
+
+    createArea({
+      id: 'sodertalje-syd',
+      name: 'Södertälje Syd',
+      ...generateAreaContent({
+        name: 'Södertälje Syd',
+        postalCodes: ['152 XX'],
+        neighborhoods: [
+          'Södertälje Syd Station',
+          'Södertälje Hamn',
+          'Industriområdet',
+          'Södra Hamnen',
+          'Södertälje Syds Industriområde'
+        ],
+        landmarks: [
+          'Södertälje Syd Station',
+          'Södertälje Hamn',
+          'Scanias Södra Fabrik',
+          'AstraZeneca',
+          'Södertälje Hamn Station'
+        ]
+      }),
+      image: '/images/areas/sodertalje-syd.jpg',
+      postalCodes: ['152 XX'],
+      services: [
+        {
+          name: 'Elinstallation',
+          description: 'Professionell installation för industri och företag.',
+          price: 'Från 895 kr/timme',
+        },
+        {
+          name: 'Elbilsladdare',
+          description: 'Installation av laddstationer för företagsflottor.',
+          price: 'Enligt offert',
+        },
+        {
+          name: 'Akut hjälp',
+          description: 'Jour dygnet runt för industri och verksamhet.',
+          price: 'Från 1 295 kr/timme',
+        },
+        {
+          name: 'Industriservice',
+          description: 'Specialanpassade lösningar för industrifastigheter.',
+          price: 'Enligt serviceavtal',
+        },
+      ],
+      type: 'central'
+    }),
+
+    // Kransorter & kommundelar
+    createArea({
+      id: 'enhorna',
+      name: 'Enhörna',
+      ...generateAreaContent({
+        name: 'Enhörna',
+        postalCodes: ['151 XX'],
+        neighborhoods: [
+          'Ekeby',
+          'Sandviken',
+          'Ytterenhörna',
+          'Överenhörna'
+        ],
+        landmarks: [
+          'Enhörna Kyrka',
+          'Enhörna IP',
+          'Sandvikens Brygga',
+          'Yngern'
+        ]
+      }),
+      image: '/images/areas/enhorna.jpg',
+      postalCodes: ['151 XX'],
+      services: [
+        {
+          name: 'Elinstallation',
+          description: 'Professionell installation av el i både hem och företag.',
+          price: 'Från 895 kr/timme',
+        },
+        {
+          name: 'Elbilsladdare',
+          description: 'Installation av laddboxar för alla typer av elbilar.',
+          price: 'Från 12 995 kr',
+        },
+        {
+          name: 'Akut hjälp',
+          description: 'Jour dygnet runt för akuta elärenden.',
+          price: 'Från 1 295 kr/timme',
+        },
+        {
+          name: 'Renovering',
+          description: 'Komplett elrenovering och uppgradering av äldre system.',
+          price: 'Enligt offert',
+        },
+      ],
+      type: 'district'
+    }),
+
+    createArea({
+      id: 'molnbo',
+      name: 'Mölnbo',
+      ...generateAreaContent({
+        name: 'Mölnbo',
+        postalCodes: ['153 XX'],
+        neighborhoods: [
+          'Mölnbo Centrum',
+          'Fridhemsberg',
+          'Nysättra'
+        ],
+        landmarks: [
+          'Mölnbo Station',
+          'Mölnbo Skola',
+          'Mölnbo IP'
+        ]
+      }),
+      image: '/images/areas/molnbo.jpg',
+      postalCodes: ['153 XX'],
+      services: [
+        {
+          name: 'Elinstallation',
+          description: 'Professionell installation av el i både hem och företag.',
+          price: 'Från 895 kr/timme',
+        },
+        {
+          name: 'Elbilsladdare',
+          description: 'Installation av laddboxar för alla typer av elbilar.',
+          price: 'Från 12 995 kr',
+        },
+        {
+          name: 'Akut hjälp',
+          description: 'Jour dygnet runt för akuta elärenden.',
+          price: 'Från 1 295 kr/timme',
+        },
+        {
+          name: 'Renovering',
+          description: 'Komplett elrenovering och uppgradering av äldre system.',
+          price: 'Enligt offert',
+        },
+      ],
+      type: 'district'
+    }),
+
+    createArea({
+      id: 'vardinge',
+      name: 'Vårdinge',
+      ...generateAreaContent({
+        name: 'Vårdinge',
+        postalCodes: ['153 XX'],
+        neighborhoods: [
+          'Vårdinge by',
+          'Mölnbo',
+          'Näsby'
+        ],
+        landmarks: [
+          'Vårdinge Kyrka',
+          'Mölnbo Station',
+          'Långsjön'
+        ]
+      }),
+      image: '/images/areas/vardinge.jpg',
+      postalCodes: ['153 XX'],
+      services: [
+        {
+          name: 'Elinstallation',
+          description: 'Professionell installation av el i både hem och företag.',
+          price: 'Från 895 kr/timme',
+        },
+        {
+          name: 'Elbilsladdare',
+          description: 'Installation av laddboxar för alla typer av elbilar.',
+          price: 'Från 12 995 kr',
+        },
+        {
+          name: 'Akut hjälp',
+          description: 'Jour dygnet runt för akuta elärenden.',
+          price: 'Från 1 295 kr/timme',
+        },
+        {
+          name: 'Renovering',
+          description: 'Komplett elrenovering och uppgradering av äldre system.',
+          price: 'Enligt offert',
+        },
+      ],
+      type: 'district'
+    }),
+
+    createArea({
+      id: 'morko',
+      name: 'Mörkö',
+      ...generateAreaContent({
+        name: 'Mörkö',
+        postalCodes: ['153 93'],
+        neighborhoods: [
+          'Mörkö Kyrka',
+          'Hörningsholm',
+          'Oaxen',
+          'Pålsundet'
+        ],
+        landmarks: [
+          'Mörkö Kyrka',
+          'Hörningsholms Slott',
+          'Skanssundet',
+          'Oaxens Kalkbruk'
+        ]
+      }),
+      image: '/images/areas/morko.jpg',
+      postalCodes: ['153 93'],
+      services: [
+        {
+          name: 'Elinstallation',
+          description: 'Professionell installation av el i både hem och företag.',
+          price: 'Från 895 kr/timme',
+        },
+        {
+          name: 'Elbilsladdare',
+          description: 'Installation av laddboxar för alla typer av elbilar.',
+          price: 'Från 12 995 kr',
+        },
+        {
+          name: 'Akut hjälp',
+          description: 'Jour dygnet runt för akuta elärenden.',
+          price: 'Från 1 295 kr/timme',
+        },
+        {
+          name: 'Renovering',
+          description: 'Komplett elrenovering och uppgradering av äldre system.',
+          price: 'Enligt offert',
+        },
+      ],
+      type: 'district'
+    }),
+
+    // Bostadsområden
+    createArea({
+      id: 'bergvik',
+      name: 'Bergvik',
+      ...generateAreaContent({
+        name: 'Bergvik',
+        postalCodes: ['152 XX'],
+        neighborhoods: [
+          'Bergvik',
+          'Bergviks Strand',
+          'Bergviks Industriområde'
+        ],
+        landmarks: [
+          'Bergviks Brygga',
+          'Bergviks Industriområde',
+          'Bergviks Båtklubb'
+        ]
+      }),
+      image: '/images/areas/bergvik.jpg',
+      postalCodes: ['152 XX'],
+      services: [
+        {
+          name: 'Elinstallation',
+          description: 'Professionell installation av el i både hem och företag.',
+          price: 'Från 895 kr/timme',
+        },
+        {
+          name: 'Elbilsladdare',
+          description: 'Installation av laddboxar för alla typer av elbilar.',
+          price: 'Från 12 995 kr',
+        },
+        {
+          name: 'Akut hjälp',
+          description: 'Jour dygnet runt för akuta elärenden.',
+          price: 'Från 1 295 kr/timme',
+        },
+        {
+          name: 'Renovering',
+          description: 'Komplett elrenovering och uppgradering av äldre system.',
+          price: 'Enligt offert',
+        },
+      ],
+      type: 'neighborhood'
+    }),
+
+    createArea({
+      id: 'barsta',
+      name: 'Bårsta',
+      ...generateAreaContent({
+        name: 'Bårsta',
+        postalCodes: ['152 XX'],
+        neighborhoods: [
+          'Bårsta',
+          'Bårstabergen',
+          'Nedre Bårsta'
+        ],
+        landmarks: [
+          'Bårsta Centrum',
+          'Bårsta Skola',
+          'Bårstabergen'
+        ]
+      }),
+      image: '/images/areas/barsta.jpg',
+      postalCodes: ['152 XX'],
+      services: [
+        {
+          name: 'Elinstallation',
+          description: 'Professionell installation av el i både hem och företag.',
+          price: 'Från 895 kr/timme',
+        },
+        {
+          name: 'Elbilsladdare',
+          description: 'Installation av laddboxar för alla typer av elbilar.',
+          price: 'Från 12 995 kr',
+        },
+        {
+          name: 'Akut hjälp',
+          description: 'Jour dygnet runt för akuta elärenden.',
+          price: 'Från 1 295 kr/timme',
+        },
+        {
+          name: 'Renovering',
+          description: 'Komplett elrenovering och uppgradering av äldre system.',
+          price: 'Enligt offert',
+        },
+      ],
+      type: 'neighborhood'
+    }),
+
+    createArea({
+      id: 'geneta',
+      name: 'Geneta',
+      ...generateAreaContent({
+        name: 'Geneta',
+        postalCodes: ['152 XX'],
+        neighborhoods: [
+          'Geneta Centrum',
+          'Övre Geneta',
+          'Nedre Geneta'
+        ],
+        landmarks: [
+          'Geneta Centrum',
+          'Geneta Sportfält',
+          'Genetaskolan'
+        ]
+      }),
+      image: '/images/areas/geneta.jpg',
+      postalCodes: ['152 XX'],
+      services: [
+        {
+          name: 'Elinstallation',
+          description: 'Professionell installation av el i både hem och företag.',
+          price: 'Från 895 kr/timme',
+        },
+        {
+          name: 'Elbilsladdare',
+          description: 'Installation av laddboxar för alla typer av elbilar.',
+          price: 'Från 12 995 kr',
+        },
+        {
+          name: 'Akut hjälp',
+          description: 'Jour dygnet runt för akuta elärenden.',
+          price: 'Från 1 295 kr/timme',
+        },
+        {
+          name: 'Renovering',
+          description: 'Komplett elrenovering och uppgradering av äldre system.',
+          price: 'Enligt offert',
+        },
+      ],
+      type: 'neighborhood'
+    }),
+
+    createArea({
+      id: 'glasberga',
+      name: 'Glasberga',
+      ...generateAreaContent({
+        name: 'Glasberga',
+        postalCodes: ['152 XX'],
+        neighborhoods: [
+          'Glasberga Sjöstad',
+          'Glasberga Gård',
+          'Glasbergavägen'
+        ],
+        landmarks: [
+          'Glasberga Sjön',
+          'Glasberga Gård',
+          'Glasberga Förskola'
+        ]
+      }),
+      image: '/images/areas/glasberga.jpg',
+      postalCodes: ['152 XX'],
+      services: [
+        {
+          name: 'Elinstallation',
+          description: 'Professionell installation av el i både hem och företag.',
+          price: 'Från 895 kr/timme',
+        },
+        {
+          name: 'Elbilsladdare',
+          description: 'Installation av laddboxar för alla typer av elbilar.',
+          price: 'Från 12 995 kr',
+        },
+        {
+          name: 'Akut hjälp',
+          description: 'Jour dygnet runt för akuta elärenden.',
+          price: 'Från 1 295 kr/timme',
+        },
+        {
+          name: 'Renovering',
+          description: 'Komplett elrenovering och uppgradering av äldre system.',
+          price: 'Enligt offert',
+        },
+      ],
+      type: 'neighborhood'
+    }),
+
+    createArea({
+      id: 'lina-hage',
+      name: 'Lina Hage',
+      ...generateAreaContent({
+        name: 'Lina Hage',
+        postalCodes: ['152 XX'],
+        neighborhoods: [
+          'Lina',
+          'Hagestavägen',
+          'Hagaberg'
+        ],
+        landmarks: [
+          'Lina Naturreservat',
+          'Lina Skola',
+          'Hagabergs Folkhögskola'
+        ]
+      }),
+      image: '/images/areas/lina-hage.jpg',
+      postalCodes: ['152 XX'],
+      services: [
+        {
+          name: 'Elinstallation',
+          description: 'Professionell installation av el i både hem och företag.',
+          price: 'Från 895 kr/timme',
+        },
+        {
+          name: 'Elbilsladdare',
+          description: 'Installation av laddboxar för alla typer av elbilar.',
+          price: 'Från 12 995 kr',
+        },
+        {
+          name: 'Akut hjälp',
+          description: 'Jour dygnet runt för akuta elärenden.',
+          price: 'Från 1 295 kr/timme',
+        },
+        {
+          name: 'Renovering',
+          description: 'Komplett elrenovering och uppgradering av äldre system.',
+          price: 'Enligt offert',
+        },
+      ],
+      type: 'neighborhood'
+    }),
+
+    createArea({
+      id: 'ronna',
+      name: 'Ronna',
+      ...generateAreaContent({
+        name: 'Ronna',
+        postalCodes: ['152 XX'],
+        neighborhoods: [
+          'Ronna Centrum',
+          'Övre Ronna',
+          'Nedre Ronna'
+        ],
+        landmarks: [
+          'Ronna Centrum',
+          'Ronnaskolan',
+          'Ronna IP'
+        ]
+      }),
+      image: '/images/areas/ronna.jpg',
+      postalCodes: ['152 XX'],
+      services: [
+        {
+          name: 'Elinstallation',
+          description: 'Professionell installation av el i både hem och företag.',
+          price: 'Från 895 kr/timme',
+        },
+        {
+          name: 'Elbilsladdare',
+          description: 'Installation av laddboxar för alla typer av elbilar.',
+          price: 'Från 12 995 kr',
+        },
+        {
+          name: 'Akut hjälp',
+          description: 'Jour dygnet runt för akuta elärenden.',
+          price: 'Från 1 295 kr/timme',
+        },
+        {
+          name: 'Renovering',
+          description: 'Komplett elrenovering och uppgradering av äldre system.',
+          price: 'Enligt offert',
+        },
+      ],
+      type: 'neighborhood'
+    }),
+
+    createArea({
+      id: 'soldala',
+      name: 'Soldala',
+      ...generateAreaContent({
+        name: 'Soldala',
+        postalCodes: ['151 XX'],
+        neighborhoods: [
+          'Soldala',
+          'Soldalaskogen',
+          'Soldalafältet'
+        ],
+        landmarks: [
+          'Soldala Skola',
+          'Soldalafältet',
+          'Soldalaskogen'
+        ]
+      }),
+      image: '/images/areas/soldala.jpg',
+      postalCodes: ['151 XX'],
+      services: [
+        {
+          name: 'Elinstallation',
+          description: 'Professionell installation av el i både hem och företag.',
+          price: 'Från 895 kr/timme',
+        },
+        {
+          name: 'Elbilsladdare',
+          description: 'Installation av laddboxar för alla typer av elbilar.',
+          price: 'Från 12 995 kr',
+        },
+        {
+          name: 'Akut hjälp',
+          description: 'Jour dygnet runt för akuta elärenden.',
+          price: 'Från 1 295 kr/timme',
+        },
+        {
+          name: 'Renovering',
+          description: 'Komplett elrenovering och uppgradering av äldre system.',
+          price: 'Enligt offert',
+        },
+      ],
+      type: 'neighborhood'
+    }),
+
+    createArea({
+      id: 'viksangen',
+      name: 'Viksängen',
+      ...generateAreaContent({
+        name: 'Viksängen',
+        postalCodes: ['151 XX'],
+        neighborhoods: [
+          'Viksängen',
+          'Viksängens Strand',
+          'Viksängens IP'
+        ],
+        landmarks: [
+          'Viksängens IP',
+          'Viksängsskolan',
+          'Viksängens Båtklubb'
+        ]
+      }),
+      image: '/images/areas/viksangen.jpg',
+      postalCodes: ['151 XX'],
+      services: [
+        {
+          name: 'Elinstallation',
+          description: 'Professionell installation av el i både hem och företag.',
+          price: 'Från 895 kr/timme',
+        },
+        {
+          name: 'Elbilsladdare',
+          description: 'Installation av laddboxar för alla typer av elbilar.',
+          price: 'Från 12 995 kr',
+        },
+        {
+          name: 'Akut hjälp',
+          description: 'Jour dygnet runt för akuta elärenden.',
+          price: 'Från 1 295 kr/timme',
+        },
+        {
+          name: 'Renovering',
+          description: 'Komplett elrenovering och uppgradering av äldre system.',
+          price: 'Enligt offert',
+        },
+      ],
+      type: 'neighborhood'
+    }),
+
+    createArea({
+      id: 'pershagen',
+      name: 'Pershagen',
+      ...generateAreaContent({
+        name: 'Pershagen',
+        postalCodes: ['151 XX'],
+        neighborhoods: [
+          'Pershagen Centrum',
+          'Pershagens Strand',
+          'Gamla Pershagen'
+        ],
+        landmarks: [
+          'Pershagens Brygga',
+          'Pershagens IP',
+          'Pershagens Skola'
+        ]
+      }),
+      image: '/images/areas/pershagen.jpg',
+      postalCodes: ['151 XX'],
+      services: [
+        {
+          name: 'Elinstallation',
+          description: 'Professionell installation av el i både hem och företag.',
+          price: 'Från 895 kr/timme',
+        },
+        {
+          name: 'Elbilsladdare',
+          description: 'Installation av laddboxar för alla typer av elbilar.',
+          price: 'Från 12 995 kr',
+        },
+        {
+          name: 'Akut hjälp',
+          description: 'Jour dygnet runt för akuta elärenden.',
+          price: 'Från 1 295 kr/timme',
+        },
+        {
+          name: 'Renovering',
+          description: 'Komplett elrenovering och uppgradering av äldre system.',
+          price: 'Enligt offert',
+        },
+      ],
+      type: 'district'
+    }),
+
+    createArea({
+      id: 'jarna',
+      name: 'Järna',
+      ...generateAreaContent({
+        name: 'Järna',
+        postalCodes: ['153 XX'],
+        neighborhoods: [
+          'Järna Centrum',
+          'Kallfors',
+          'Ytterjärna',
+          'Överjärna'
+        ],
+        landmarks: [
+          'Järna Station',
+          'Järna Centrum',
+          'Kulturhuset',
+          'Ytterjärna Kyrka'
+        ]
+      }),
+      image: '/images/areas/jarna.jpg',
+      postalCodes: ['153 XX'],
+      services: [
+        {
+          name: 'Elinstallation',
+          description: 'Professionell installation av el i både hem och företag.',
+          price: 'Från 895 kr/timme',
+        },
+        {
+          name: 'Elbilsladdare',
+          description: 'Installation av laddboxar för alla typer av elbilar.',
+          price: 'Från 12 995 kr',
+        },
+        {
+          name: 'Akut hjälp',
+          description: 'Jour dygnet runt för akuta elärenden.',
+          price: 'Från 1 295 kr/timme',
+        },
+        {
+          name: 'Renovering',
+          description: 'Komplett elrenovering och uppgradering av äldre system.',
+          price: 'Enligt offert',
+        },
+      ],
+      type: 'district'
+    }),
+
+    createArea({
+      id: 'holo',
+      name: 'Hölö',
+      ...generateAreaContent({
+        name: 'Hölö',
+        postalCodes: ['153 92', '153 93'],
+        neighborhoods: [
+          'Hölö Kyrkby',
+          'Väsby',
+          'Österby',
+          'Lillsjön'
+        ],
+        landmarks: [
+          'Hölö Kyrka',
+          'Hölö Skola',
+          'Hölö IP',
+          'Kyrksjön'
+        ]
+      }),
+      image: '/images/areas/holo.jpg',
+      postalCodes: ['153 92', '153 93'],
+      services: [
+        {
+          name: 'Elinstallation',
+          description: 'Professionell installation av el i både hem och företag.',
+          price: 'Från 895 kr/timme',
+        },
+        {
+          name: 'Elbilsladdare',
+          description: 'Installation av laddboxar för alla typer av elbilar.',
+          price: 'Från 12 995 kr',
+        },
+        {
+          name: 'Akut hjälp',
+          description: 'Jour dygnet runt för akuta elärenden.',
+          price: 'Från 1 295 kr/timme',
+        },
+        {
+          name: 'Renovering',
+          description: 'Komplett elrenovering och uppgradering av äldre system.',
+          price: 'Enligt offert',
+        },
+      ],
+      type: 'district'
+    }),
+
+    createArea({
+      id: 'ostertalje',
+      name: 'Östertälje',
+      ...generateAreaContent({
+        name: 'Östertälje',
+        postalCodes: ['151 XX', '152 XX'],
+        neighborhoods: [
+          'Östertälje Centrum',
+          'Igelsta',
+          'Östertälje Strand',
+          'Gärtuna'
+        ],
+        landmarks: [
+          'Östertälje Station',
+          'Igelsta Kraftvärmeverk',
+          'Östertälje IP',
+          'Gärtuna Industriområde'
+        ]
+      }),
+      image: '/images/areas/ostertalje.jpg',
+      postalCodes: ['151 XX', '152 XX'],
+      services: [
+        {
+          name: 'Elinstallation',
+          description: 'Professionell installation av el i både hem och företag.',
+          price: 'Från 895 kr/timme',
+        },
+        {
+          name: 'Elbilsladdare',
+          description: 'Installation av laddboxar för alla typer av elbilar.',
+          price: 'Från 12 995 kr',
+        },
+        {
+          name: 'Akut hjälp',
+          description: 'Jour dygnet runt för akuta elärenden.',
+          price: 'Från 1 295 kr/timme',
+        },
+        {
+          name: 'Renovering',
+          description: 'Komplett elrenovering och uppgradering av äldre system.',
+          price: 'Enligt offert',
+        },
+      ],
+      type: 'district'
+    }),
+
+    createArea({
+      id: 'hovsjo',
+      name: 'Hovsjö',
+      ...generateAreaContent({
+        name: 'Hovsjö',
+        postalCodes: ['152 XX'],
+        neighborhoods: [
+          'Hovsjö Centrum',
+          'Hovsjö Gård',
+          'Hovsjöparken'
+        ],
+        landmarks: [
+          'Hovsjö Hub',
+          'Hovsjöskolan',
+          'Hovsjö Kyrka',
+          'Hovsjöparken'
+        ]
+      }),
+      image: '/images/areas/hovsjo.jpg',
+      postalCodes: ['152 XX'],
+      services: [
+        {
+          name: 'Elinstallation',
+          description: 'Professionell installation av el i både hem och företag.',
+          price: 'Från 895 kr/timme',
+        },
+        {
+          name: 'Elbilsladdare',
+          description: 'Installation av laddboxar för alla typer av elbilar.',
+          price: 'Från 12 995 kr',
+        },
+        {
+          name: 'Akut hjälp',
+          description: 'Jour dygnet runt för akuta elärenden.',
+          price: 'Från 1 295 kr/timme',
+        },
+        {
+          name: 'Renovering',
+          description: 'Komplett elrenovering och uppgradering av äldre system.',
+          price: 'Enligt offert',
+        },
+      ],
+      type: 'neighborhood'
+    }),
+
+    createArea({
+      id: 'saltskog',
+      name: 'Saltskog',
+      ...generateAreaContent({
+        name: 'Saltskog',
+        postalCodes: ['151 XX'],
+        neighborhoods: [
+          'Saltskog Centrum',
+          'Övre Saltskog',
+          'Nedre Saltskog'
+        ],
+        landmarks: [
+          'Saltskogs Gård',
+          'Saltskogsskolan',
+          'Saltskogs IP'
+        ]
+      }),
+      image: '/images/areas/saltskog.jpg',
+      postalCodes: ['151 XX'],
+      services: [
+        {
+          name: 'Elinstallation',
+          description: 'Professionell installation av el i både hem och företag.',
+          price: 'Från 895 kr/timme',
+        },
+        {
+          name: 'Elbilsladdare',
+          description: 'Installation av laddboxar för alla typer av elbilar.',
+          price: 'Från 12 995 kr',
+        },
+        {
+          name: 'Akut hjälp',
+          description: 'Jour dygnet runt för akuta elärenden.',
+          price: 'Från 1 295 kr/timme',
+        },
+        {
+          name: 'Renovering',
+          description: 'Komplett elrenovering och uppgradering av äldre system.',
+          price: 'Enligt offert',
+        },
+      ],
+      type: 'neighborhood'
+    }),
+
+    createArea({
+      id: 'rosenlund',
+      name: 'Rosenlund',
+      ...generateAreaContent({
+        name: 'Rosenlund',
+        postalCodes: ['151 XX'],
+        neighborhoods: [
+          'Rosenlund',
+          'Rosenlunds Park',
+          'Rosenlunds Strand'
+        ],
+        landmarks: [
+          'Rosenlunds IP',
+          'Rosenlundsskolan',
+          'Rosenlunds Park'
+        ]
+      }),
+      image: '/images/areas/rosenlund.jpg',
+      postalCodes: ['151 XX'],
+      services: [
+        {
+          name: 'Elinstallation',
+          description: 'Professionell installation av el i både hem och företag.',
+          price: 'Från 895 kr/timme',
+        },
+        {
+          name: 'Elbilsladdare',
+          description: 'Installation av laddboxar för alla typer av elbilar.',
+          price: 'Från 12 995 kr',
+        },
+        {
+          name: 'Akut hjälp',
+          description: 'Jour dygnet runt för akuta elärenden.',
+          price: 'Från 1 295 kr/timme',
+        },
+        {
+          name: 'Renovering',
+          description: 'Komplett elrenovering och uppgradering av äldre system.',
+          price: 'Enligt offert',
+        },
+      ],
+      type: 'neighborhood'
+    }),
+
+    createArea({
+      id: 'fornhojden',
+      name: 'Fornhöjden',
+      ...generateAreaContent({
+        name: 'Fornhöjden',
+        postalCodes: ['152 XX'],
+        neighborhoods: [
+          'Fornhöjden Centrum',
+          'Övre Fornhöjden',
+          'Nedre Fornhöjden'
+        ],
+        landmarks: [
+          'Fornhöjdsskolan',
+          'Fornhöjdens Centrum',
+          'Fornhöjdsparken'
+        ]
+      }),
+      image: '/images/areas/fornhojden.jpg',
+      postalCodes: ['152 XX'],
+      services: [
+        {
+          name: 'Elinstallation',
+          description: 'Professionell installation av el i både hem och företag.',
+          price: 'Från 895 kr/timme',
+        },
+        {
+          name: 'Elbilsladdare',
+          description: 'Installation av laddboxar för alla typer av elbilar.',
+          price: 'Från 12 995 kr',
+        },
+        {
+          name: 'Akut hjälp',
+          description: 'Jour dygnet runt för akuta elärenden.',
+          price: 'Från 1 295 kr/timme',
+        },
+        {
+          name: 'Renovering',
+          description: 'Komplett elrenovering och uppgradering av äldre system.',
+          price: 'Enligt offert',
+        },
+      ],
+      type: 'neighborhood'
+    }),
+
+    createArea({
+      id: 'karlhov',
+      name: 'Karlhov',
+      ...generateAreaContent({
+        name: 'Karlhov',
+        postalCodes: ['151 XX'],
+        neighborhoods: [
+          'Karlhov',
+          'Karlhovs Strand',
+          'Karlhovs Park'
+        ],
+        landmarks: [
+          'Karlhovsskolan',
+          'Karlhovs IP',
+          'Karlhovsparken'
+        ]
+      }),
+      image: '/images/areas/karlhov.jpg',
+      postalCodes: ['151 XX'],
+      services: [
+        {
+          name: 'Elinstallation',
+          description: 'Professionell installation av el i både hem och företag.',
+          price: 'Från 895 kr/timme',
+        },
+        {
+          name: 'Elbilsladdare',
+          description: 'Installation av laddboxar för alla typer av elbilar.',
+          price: 'Från 12 995 kr',
+        },
+        {
+          name: 'Akut hjälp',
+          description: 'Jour dygnet runt för akuta elärenden.',
+          price: 'Från 1 295 kr/timme',
+        },
+        {
+          name: 'Renovering',
+          description: 'Komplett elrenovering och uppgradering av äldre system.',
+          price: 'Enligt offert',
+        },
+      ],
+      type: 'neighborhood'
+    }),
+
+    createArea({
+      id: 'blombacka',
+      name: 'Blombacka',
+      ...generateAreaContent({
+        name: 'Blombacka',
+        postalCodes: ['152 XX'],
+        neighborhoods: [
+          'Blombacka Centrum',
+          'Övre Blombacka',
+          'Nedre Blombacka'
+        ],
+        landmarks: [
+          'Blombackaskolan',
+          'Blombacka Centrum',
+          'Blombackaparken'
+        ]
+      }),
+      image: '/images/areas/blombacka.jpg',
+      postalCodes: ['152 XX'],
+      services: [
+        {
+          name: 'Elinstallation',
+          description: 'Professionell installation av el i både hem och företag.',
+          price: 'Från 895 kr/timme',
+        },
+        {
+          name: 'Elbilsladdare',
+          description: 'Installation av laddboxar för alla typer av elbilar.',
+          price: 'Från 12 995 kr',
+        },
+        {
+          name: 'Akut hjälp',
+          description: 'Jour dygnet runt för akuta elärenden.',
+          price: 'Från 1 295 kr/timme',
+        },
+        {
+          name: 'Renovering',
+          description: 'Komplett elrenovering och uppgradering av äldre system.',
+          price: 'Enligt offert',
+        },
+      ],
+      type: 'neighborhood'
+    }),
+
+    createArea({
+      id: 'sodertalje-nord',
+      name: 'Södertälje Nord',
+      ...generateAreaContent({
+        name: 'Södertälje Nord',
+        postalCodes: ['151 XX'],
+        neighborhoods: [
+          'Södertälje Nord Station',
+          'Moraberg',
+          'Norra Industriområdet',
+          'Morabergs Handelsområde'
+        ],
+        landmarks: [
+          'Södertälje Nord Station',
+          'Morabergs Handelsplats',
+          'Scanias Norra Fabrik',
+          'Morabergs Industriområde'
+        ]
+      }),
+      image: '/images/areas/sodertalje-nord.jpg',
+      postalCodes: ['151 XX'],
+      services: [
+        {
+          name: 'Elinstallation',
+          description: 'Professionell installation för industri och företag.',
+          price: 'Från 895 kr/timme',
+        },
+        {
+          name: 'Elbilsladdare',
+          description: 'Installation av laddstationer för företagsflottor.',
+          price: 'Enligt offert',
+        },
+        {
+          name: 'Akut hjälp',
+          description: 'Jour dygnet runt för industri och verksamhet.',
+          price: 'Från 1 295 kr/timme',
+        },
+        {
+          name: 'Industriservice',
+          description: 'Specialanpassade lösningar för industrifastigheter.',
+          price: 'Enligt serviceavtal',
+        },
+      ],
+      type: 'central'
+    }),
+
+    // Keep existing areas but update their neighborhoods and landmarks...
+    // ... rest of existing areas ...
+  ];
+
+  return areas.map((area: Area) => ({
+    params: { slug: area.id },
+    props: { area },
+  }));
+}
+
+const { area } = Astro.props as Props;
+
+const schema: SchemaData = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Södertälje El",
+  "description": `Elektriker i ${area.name}. Vi erbjuder elinstallation, elbilsladdare, renovering och akut hjälp 24/7.`,
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": area.name,
+    "addressRegion": "Stockholm",
+    "postalCode": area.postalCodes[0],
+    "addressCountry": "SE"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": "59.1954",
+    "longitude": "17.6255"
+  },
+  "areaServed": {
+    "@type": "City",
+    "name": area.name
+  },
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Elektriker-tjänster",
+    "itemListElement": area.services.map((service: Service): SchemaOffer => ({
+      "@type": "Offer",
+      "itemOffered": {
+        "@type": "Service",
+        "name": service.name,
+        "description": service.description
+      },
+      "priceSpecification": {
+        "@type": "PriceSpecification",
+        "price": service.price
+      }
+    }))
+  }
+};
+---
+
+<Layout
+  title={area.title}
+  description={area.description}
+>
+  <Header slot="header" />
+
+  <Hero
+    badge={`Elektriker i ${area.name}`}
+    title={`Behöver du elektriker i ${area.name}?`}
+    description={`Din lokala elektriker i ${area.name}. Vi erbjuder snabb service, fasta priser och 100% nöjd-kund-garanti. Akut hjälp inom 60 minuter, dygnet runt.`}
+    image={area.image}
+    showCTA={true}
+    showHighlights={true}
+  />
+
+  <!-- Main Content -->
+  <section class="py-16">
+    <div class="container mx-auto px-4">
+      <div class="grid md:grid-cols-12 gap-12">
+        <!-- Content -->
+        <div class="md:col-span-8">
+          <div class="prose prose-lg max-w-none">
+            {area.content.split('\n\n').map((paragraph: string) => (
+              <div class="content-block">
+                {paragraph.includes('•') ? (
+                  <ul class="list-none space-y-2">
+                    {paragraph.split('\n').map((line: string) => (
+                      <li class={line.startsWith('•') ? 'flex items-start' : 'font-semibold text-xl mb-4'}>
+                        {line.startsWith('•') ? (
+                          <>
+                            <span class="text-primary-600 mr-2">{line.substring(0, 1)}</span>
+                            <span>{line.substring(2)}</span>
+                          </>
+                        ) : (
+                          line
+                        )}
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  paragraph.split('\n').map((line: string) => (
+                    line.length > 0 && (
+                      line === paragraph.split('\n')[0] && !line.includes(':') ? (
+                        <h2 class="text-3xl font-bold mb-6">{line}</h2>
+                      ) : line.endsWith(':') ? (
+                        <h3 class="text-xl font-semibold mb-4">{line}</h3>
+                      ) : (
+                        <p class="mb-6">{line}</p>
+                      )
+                    )
+                  ))
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="md:col-span-4">
+          <div class="sticky top-24 space-y-8">
+            <!-- Services -->
+            <div class="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden">
+              <div class="p-6">
+                <h3 class="text-xl font-bold mb-4">Våra tjänster</h3>
+                <div class="space-y-4">
+                  {area.services.map((service: Service) => (
+                    <div class="border-b border-gray-100 last:border-0 pb-4 last:pb-0">
+                      <h4 class="font-semibold mb-1">{service.name}</h4>
+                      <p class="text-sm text-gray-600 mb-2">{service.description}</p>
+                      <p class="text-sm font-medium text-primary-600">{service.price}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <!-- Contact Form -->
+            <div class="bg-gray-50 rounded-lg p-6">
+              <h3 class="text-xl font-bold mb-4">Kontakta oss</h3>
+              <p class="text-gray-600 mb-6">
+                Behöver du hjälp av en elektriker i {area.name}? 
+                Vi återkommer med offert inom 2 timmar på vardagar.
+              </p>
+              <ContactForm
+                title="Få kostnadsfri offert"
+                description={`Vi hjälper dig i ${area.name}`}
+                submitLabel="Skicka förfrågan"
+              />
+            </div>
+
+            <!-- Coverage Area -->
+            <div class="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
+              <h3 class="text-xl font-bold mb-4">Täckningsområde</h3>
+              <div class="space-y-2">
+                <p class="text-gray-600 mb-4">Vi täcker följande postnummer:</p>
+                <div class="flex flex-wrap gap-2">
+                  {area.postalCodes.map((code: string) => (
+                    <span class="px-3 py-1 bg-gray-100 rounded-full text-sm text-gray-600">
+                      {code}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="bg-primary-900 text-white py-16">
+    <div class="container mx-auto px-4">
+      <div class="max-w-3xl mx-auto text-center">
+        <h2 class="text-3xl font-bold mb-6">Behöver du elektriker i {area.name}?</h2>
+        <p class="text-xl text-gray-100 mb-8">
+          Vi finns nära dig och kan snabbt vara på plats. Kontakta oss för en kostnadsfri offert!
+        </p>
+        <div class="flex flex-col sm:flex-row justify-center gap-4">
+          <a
+            href="tel:08-123 456 78"
+            class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-primary-700 bg-white hover:bg-gray-50"
+          >
+            Ring akut: 08-123 456 78
+          </a>
+          <a
+            href="#contact"
+            class="inline-flex items-center justify-center px-6 py-3 border border-white text-base font-medium rounded-md text-white hover:bg-primary-800"
+          >
+            Få kostnadsfri offert
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Footer slot="footer" />
+
+  <!-- Schema.org JSON-LD -->
+  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+</Layout> 

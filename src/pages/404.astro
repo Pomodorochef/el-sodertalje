@@ -1,0 +1,73 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout
+  title="Sidan hittades inte | Elektriker Södertälje | Jour 24/7"
+  description="Sidan kunde inte hittas, men vi hjälper dig med alla elärenden i Södertälje. Ring 08-123 456 78 för akut hjälp dygnet runt. ✓ Snabb service ✓ Fast pris"
+>
+  <Header slot="header" />
+
+  <main class="min-h-[60vh] flex items-center">
+    <div class="container mx-auto px-4 py-16">
+      <div class="max-w-2xl mx-auto text-center">
+        <h1 class="text-4xl md:text-5xl font-bold mb-6">Hoppsan! Sidan hittades inte</h1>
+        
+        <p class="text-xl text-gray-600 mb-8">
+          Tyvärr kunde vi inte hitta sidan du letade efter. Men oroa dig inte - vi är här för att hjälpa!
+        </p>
+
+        <div class="bg-white rounded-lg p-8 shadow-sm border border-gray-100 mb-8">
+          <h2 class="text-2xl font-bold mb-4">Behöver du akut hjälp?</h2>
+          <p class="text-gray-600 mb-6">
+            Vi har jour dygnet runt och kan vara på plats inom 60 minuter vid akuta elfel.
+          </p>
+          <div class="flex flex-col sm:flex-row justify-center gap-4">
+            <a
+              href="tel:08-123 456 78"
+              class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700"
+            >
+              Ring jour: 08-123 456 78
+            </a>
+            <a
+              href="/"
+              class="inline-flex items-center justify-center px-6 py-3 border border-primary-600 text-base font-medium rounded-md text-primary-600 hover:bg-primary-50"
+            >
+              Gå till startsidan
+            </a>
+          </div>
+        </div>
+
+        <div class="prose prose-lg max-w-none">
+          <h2 class="text-2xl font-bold mb-4">Populära sidor</h2>
+          <ul class="list-none grid sm:grid-cols-2 gap-4">
+            <li>
+              <a href="/tjanster#elinstallation" class="block p-4 bg-white rounded-lg border border-gray-100 hover:border-primary-100 hover:shadow-sm">
+                Elinstallation
+              </a>
+            </li>
+            <li>
+              <a href="/tjanster#elbilsladdare" class="block p-4 bg-white rounded-lg border border-gray-100 hover:border-primary-100 hover:shadow-sm">
+                Elbilsladdare
+              </a>
+            </li>
+            <li>
+              <a href="/tjanster#akut-hjalp" class="block p-4 bg-white rounded-lg border border-gray-100 hover:border-primary-100 hover:shadow-sm">
+                Akut Elservice
+              </a>
+            </li>
+            <li>
+              <a href="/kontakt" class="block p-4 bg-white rounded-lg border border-gray-100 hover:border-primary-100 hover:shadow-sm">
+                Kontakta oss
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <Footer slot="footer" />
+</Layout> 
