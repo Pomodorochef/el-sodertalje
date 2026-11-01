@@ -1,5 +1,5 @@
 ---
-import { COMPANY_EMAIL, COMPANY_NAME, COMPANY_ORG_NR, DISCLOSURE } from '../lib/site';
+import { COMPANY_NAME, COMPANY_ORG_NR, DISCLOSURE } from '../lib/site';
 
 interface IconProps {
   class?: string;
@@ -109,15 +109,6 @@ const navigation = {
               <li>
                 <a href="/kontakt" class="text-base text-gray-300 hover:text-white">
                   Skicka förfrågan
-                </a>
-              </li>
-              <li>
-                <a
-                  href={`mailto:${COMPANY_EMAIL}`}
-                  class="text-base text-gray-300 hover:text-white"
-                  aria-label="Skicka e-post till oss"
-                >
-                  {COMPANY_EMAIL}
                 </a>
               </li>
               <li>
