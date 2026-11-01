@@ -1,4 +1,6 @@
 ---
+import { EMERGENCY_NOTE, WHAT_WE_DO } from '../lib/site';
+
 interface Props {
   title?: string;
   description?: string;
@@ -6,9 +8,9 @@ interface Props {
 }
 
 const {
-  title = 'Kontakta oss',
-  description = 'Fyll i formuläret så återkommer vi inom 24 timmar.',
-  submitLabel = 'Skicka meddelande',
+  title = 'Skicka förfrågan',
+  description = WHAT_WE_DO,
+  submitLabel = 'Skicka förfrågan',
 } = Astro.props;
 
 // Get the current site URL from Astro
@@ -17,7 +19,8 @@ const siteUrl = 'https://elektriker-sodertalje.se';
 
 <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 sm:p-8">
   {title && <h3 class="text-2xl font-bold text-gray-900 mb-2">{title}</h3>}
-  {description && <p class="text-gray-600 mb-6">{description}</p>}
+  {description && <p class="text-gray-600 mb-4">{description}</p>}
+  <p class="text-sm text-gray-600 mb-6">{EMERGENCY_NOTE}</p>
   
   <form id="contact-form" class="space-y-6">
     <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px" />
@@ -85,10 +88,9 @@ const siteUrl = 'https://elektriker-sodertalje.se';
             required
             class="block w-full rounded-md bg-white border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500"
           >
-            <option value="">Välj tjänst</option>
+            <option value="">Välj typ av arbete</option>
             <option value="installation">Elinstallation</option>
             <option value="repair">Reparation</option>
-            <option value="emergency">Akut hjälp</option>
             <option value="inspection">Besiktning</option>
             <option value="ev-charger">Elbilsladdare</option>
             <option value="other">Övrigt</option>
@@ -126,7 +128,7 @@ const siteUrl = 'https://elektriker-sodertalje.se';
           </div>
           <div class="ml-3">
             <p class="text-sm text-gray-500">
-              Jag godkänner att mina uppgifter sparas enligt
+              Jag godkänner att mina uppgifter behandlas och lämnas vidare till en lokal elektriker enligt
               <a href="/integritetspolicy" class="font-medium text-primary-600 hover:text-primary-500">
                 integritetspolicyn
               </a>

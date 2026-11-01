@@ -5,6 +5,7 @@ import Footer from '../../components/Footer.astro';
 import ContactForm from '../../components/ContactForm.astro';
 import { BLOG_POSTS } from '../../data/blogPosts';
 import type { BlogPost } from '../../data/blogPosts';
+import { DISCLOSURE, ELSAKERHETSVERKET_URL, EMERGENCY_NOTE, ORGANIZATION, ROT_NOTE, SKATTEVERKET_URL } from '../../lib/site';
 
 export function getStaticPaths() {
   return BLOG_POSTS.map((post: BlogPost) => ({
@@ -23,18 +24,8 @@ const schema = {
   "image": `https://elektriker-södertälje.se${post.image}`,
   "datePublished": post.date,
   "dateModified": post.date,
-  "author": {
-    "@type": "Person",
-    "name": post.author
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "Södertälje El",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://elektriker-södertälje.se/images/logo.png"
-    }
-  },
+  "author": ORGANIZATION,
+  "publisher": ORGANIZATION,
   "mainEntityOfPage": {
     "@type": "WebPage",
     "@id": `https://elektriker-södertälje.se/blogg/${post.id}`
@@ -124,13 +115,13 @@ const schema = {
                 <>
                   <h2>Installation av elbilsladdare i Södertälje</h2>
                   <p>
-                    Med den växande populariteten av elbilar blir det allt viktigare att ha en pålitlig laddningslösning hemma. 
-                    Som certifierade elektriker i Södertälje hjälper vi dig med allt från val av laddbox till installation och driftsättning.
+                    Med den växande populariteten av elbilar blir det allt viktigare att ha en pålitlig laddningslösning hemma.
+                    Här går vi igenom det du bör tänka på, från val av laddbox till installation och driftsättning.
                   </p>
 
                   <h3>Fördelar med en professionellt installerad laddbox</h3>
                   <ul>
-                    <li>Upp till 10 gånger snabbare laddning än via vanligt vägguttag</li>
+                    <li>Snabbare laddning än via vanligt vägguttag</li>
                     <li>Säker laddning med inbyggda skyddsfunktioner</li>
                     <li>Smart styrning och övervakning via app</li>
                     <li>Möjlighet till lastbalansering</li>
@@ -142,15 +133,18 @@ const schema = {
                     Totalkostnaden för en installation består av flera delar:
                   </p>
                   <ul>
-                    <li>Laddbox: 5 000-15 000 kr</li>
-                    <li>Installation: 5 000-15 000 kr</li>
+                    <li>Laddbox</li>
+                    <li>Arbetet med installationen</li>
                     <li>Eventuell uppgradering av elcentral</li>
-                    <li>ROT-avdrag möjligt på arbetskostnaden</li>
                   </ul>
+                  <p>
+                    Be om en skriftlig offert innan arbetet börjar. Skattereduktion kan vara möjlig, till exempel för grön teknik eller som ROT-avdrag.
+                    {' '}{ROT_NOTE} Läs mer hos <a href={SKATTEVERKET_URL} rel="noopener noreferrer" target="_blank">Skatteverket</a>.
+                  </p>
 
                   <h3>Olika typer av laddboxar</h3>
                   <p>
-                    Vi hjälper dig välja rätt laddbox baserat på din bil och dina behov:
+                    Rätt laddbox beror på din bil och dina behov:
                   </p>
                   <ul>
                     <li><strong>Enfasladdare (3,7-7,4 kW)</strong> - Passar plug-in hybrider och mindre elbilar</li>
@@ -162,37 +156,33 @@ const schema = {
                     <li>Kontrollera din bils laddkapacitet</li>
                     <li>Se över din huvudsäkring</li>
                     <li>Välj en framtidssäkrad lösning</li>
-                    <li>Anlita alltid certifierad elektriker</li>
+                    <li>Anlita ett registrerat elinstallationsföretag</li>
                   </ul>
 
-                  <h2>Varför välja oss för installation?</h2>
-                  <ul>
-                    <li>Certifierade installatörer med stor erfarenhet</li>
-                    <li>Kostnadsfri besiktning och offert</li>
-                    <li>5 års garanti på installationen</li>
-                    <li>Support efter installation</li>
-                    <li>Snabb installation - ofta inom en vecka</li>
-                  </ul>
-
-                  <h2>Kontakta oss för kostnadsfri offert</h2>
+                  <h2>Kontrollera företaget</h2>
                   <p>
-                    Vill du veta mer om installation av elbilsladdare i Södertälje? 
-                    Kontakta oss för en kostnadsfri offert och besiktning. Vi hjälper dig hitta den bästa lösningen för ditt hem.
+                    Elarbeten ska utföras av ett registrerat elinstallationsföretag. Du kan kontrollera ett företag i{' '}
+                    <a href={ELSAKERHETSVERKET_URL} rel="noopener noreferrer" target="_blank">Elsäkerhetsverkets register</a>.
+                  </p>
+
+                  <h2>Behöver du hjälp med installationen?</h2>
+                  <p>
+                    Beskriv ditt elarbete, så försöker vi koppla ihop dig med en lokal elektriker. Vi kan inte garantera att någon kan ta uppdraget.
+                    Det är gratis för dig och du förbinder dig inte till något. <a href="/kontakt">Skicka förfrågan</a>.
                   </p>
                 </>
               )}
 
               {post.id === 'elsakerhet-hemmet-guide' && (
                 <>
-                  <h2>10 Viktiga Tips för Elsäkerhet i Hemmet</h2>
+                  <h2>Viktiga tips för elsäkerhet i hemmet</h2>
                   <p>
-                    Som certifierade elektriker i Södertälje ser vi dagligen exempel på bristande elsäkerhet. 
-                    Här är våra bästa tips för att göra ditt hem säkrare.
+                    Här är några tips som kan göra ditt hem säkrare.
                   </p>
 
                   <h3>1. Kontrollera jordfelsbrytaren regelbundet</h3>
                   <p>
-                    Testa jordfelsbrytaren minst två gånger per år genom att trycka på testknappen. 
+                    Testa jordfelsbrytaren regelbundet genom att trycka på testknappen, och följ tillverkarens anvisning. 
                     En fungerande jordfelsbrytare är din viktigaste livförsäkring när det gäller el.
                   </p>
 
@@ -200,7 +190,7 @@ const schema = {
                   <ul>
                     <li>Leta efter missfärgningar och värmeskador</li>
                     <li>Kontrollera att uttagen sitter fast ordentligt</li>
-                    <li>Byt ut spruckna eller skadade uttag</li>
+                    <li>Låt ett registrerat elinstallationsföretag byta spruckna eller skadade uttag</li>
                   </ul>
 
                   <h3>3. Undvik överbelastning</h3>
@@ -228,12 +218,12 @@ const schema = {
                   <ul>
                     <li>Använd endast IP-klassade produkter</li>
                     <li>Respektera säkerhetsavstånd till vatten</li>
-                    <li>Låt alltid behörig elektriker installera uttag</li>
+                    <li>Låt alltid ett registrerat elinstallationsföretag installera uttag</li>
                   </ul>
 
                   <h2>När ska du kontakta elektriker?</h2>
                   <p>
-                    Kontakta alltid en certifierad elektriker om du upptäcker:
+                    Kontakta en elektriker från ett registrerat elinstallationsföretag om du upptäcker:
                   </p>
                   <ul>
                     <li>Återkommande säkringar som löser ut</li>
@@ -242,10 +232,20 @@ const schema = {
                     <li>Stickproppar som känns varma</li>
                   </ul>
 
-                  <h2>Boka elsäkerhetsbesiktning</h2>
                   <p>
-                    Vi erbjuder professionell elsäkerhetsbesiktning i Södertälje med omnejd. 
-                    Kontakta oss för mer information eller boka en besiktning redan idag.
+                    {EMERGENCY_NOTE}
+                  </p>
+
+                  <h2>Kontrollera företaget</h2>
+                  <p>
+                    Elarbeten ska utföras av ett registrerat elinstallationsföretag. Du kan kontrollera ett företag i{' '}
+                    <a href={ELSAKERHETSVERKET_URL} rel="noopener noreferrer" target="_blank">Elsäkerhetsverkets register</a>.
+                  </p>
+
+                  <h2>Vill du få din el kontrollerad?</h2>
+                  <p>
+                    Beskriv ditt elarbete, så försöker vi koppla ihop dig med en lokal elektriker. Vi kan inte garantera att någon kan ta uppdraget.
+                    Det är gratis för dig och du förbinder dig inte till något. <a href="/kontakt">Skicka förfrågan</a>.
                   </p>
                 </>
               )}
@@ -260,7 +260,7 @@ const schema = {
 
                   <h3>Fördelar med smart belysning</h3>
                   <ul>
-                    <li>Upp till 80% lägre energiförbrukning</li>
+                    <li>Lägre energiförbrukning med LED och automatisk styrning</li>
                     <li>Automatisk styrning baserad på tid och rörelse</li>
                     <li>Fjärrstyrning via mobilen</li>
                     <li>Ökad säkerhet med simulerad närvaro</li>
@@ -279,14 +279,12 @@ const schema = {
 
                   <h3>Installation och setup</h3>
                   <p>
-                    För bästa resultat rekommenderar vi professionell installation:
+                    Fast installerade delar ska installeras av ett registrerat elinstallationsföretag. Det kan till exempel gälla:
                   </p>
                   <ul>
-                    <li>Korrekt dimensionering av systemet</li>
-                    <li>Säker installation av styrenheter</li>
+                                        <li>Installation av fast monterade styrenheter</li>
                     <li>Integration med befintlig installation</li>
-                    <li>Programmering och driftsättning</li>
-                  </ul>
+                                      </ul>
 
                   <h2>Energibesparing med smart belysning</h2>
                   <p>
@@ -299,10 +297,10 @@ const schema = {
                     <li>Behovsstyrd belysning</li>
                   </ul>
 
-                  <h2>Kontakta oss för smart belysning</h2>
+                  <h2>Behöver du hjälp med smart belysning?</h2>
                   <p>
-                    Vi hjälper dig med allt från planering till installation av smart belysning i Södertälje. 
-                    Kontakta oss för en kostnadsfri konsultation.
+                    Beskriv ditt elarbete, så försöker vi koppla ihop dig med en lokal elektriker. Vi kan inte garantera att någon kan ta uppdraget.
+                    Det är gratis för dig och du förbinder dig inte till något. <a href="/kontakt">Skicka förfrågan</a>.
                   </p>
                 </>
               )}
@@ -325,20 +323,17 @@ const schema = {
                     <li>Isolationsfel i elektrisk utrustning</li>
                   </ul>
 
-                  <h3>Lagkrav på jordfelsbrytare</h3>
+                  <h3>Regler om jordfelsbrytare</h3>
                   <p>
-                    Sedan 2000 finns det olika krav på jordfelsbrytare:
+                    Vilka krav som gäller beror bland annat på när och hur installationen är gjord. Läs mer hos{' '}
+                    <a href={ELSAKERHETSVERKET_URL} rel="noopener noreferrer" target="_blank">Elsäkerhetsverket</a>{' '}
+                    eller fråga ett registrerat elinstallationsföretag.
                   </p>
-                  <ul>
-                    <li>Obligatoriskt i nya installationer</li>
-                    <li>Krav vid utomhusinstallationer</li>
-                    <li>Särskilda krav för badrum och våtutrymmen</li>
-                  </ul>
 
                   <h3>Olika typer av jordfelsbrytare</h3>
                   <ul>
                     <li><strong>Typ A</strong> - För de flesta hushållsinstallationer</li>
-                    <li><strong>Typ B</strong> - För speciell utrustning (t.ex. elbilsladdare)</li>
+                    <li><strong>Typ B</strong> - Kan behövas för viss utrustning, till exempel vissa elbilsladdare</li>
                     <li><strong>Selektiva jordfelsbrytare</strong> - För seriekoppling</li>
                   </ul>
 
@@ -347,7 +342,7 @@ const schema = {
                     För att säkerställa funktionen bör du:
                   </p>
                   <ul>
-                    <li>Testa jordfelsbrytaren var 6:e månad</li>
+                    <li>Testa jordfelsbrytaren regelbundet och följ tillverkarens anvisning</li>
                     <li>Dokumentera testerna</li>
                     <li>Kontakta elektriker vid problem</li>
                   </ul>
@@ -357,15 +352,15 @@ const schema = {
                     Överväg byte av jordfelsbrytare om:
                   </p>
                   <ul>
-                    <li>Den är äldre än 10 år</li>
+                    <li>Den är gammal och du är osäker på skicket</li>
                     <li>Den löser ut ofta utan orsak</li>
                     <li>Testknappen inte fungerar</li>
                   </ul>
 
-                  <h2>Kontakta oss för jordfelsbrytare</h2>
+                  <h2>Behöver du hjälp med jordfelsbrytare?</h2>
                   <p>
-                    Vi hjälper dig med installation och kontroll av jordfelsbrytare i Södertälje. 
-                    Kontakta oss för en säker installation enligt gällande regler.
+                    Beskriv ditt elarbete, så försöker vi koppla ihop dig med en lokal elektriker. Vi kan inte garantera att någon kan ta uppdraget.
+                    Det är gratis för dig och du förbinder dig inte till något. <a href="/kontakt">Skicka förfrågan</a>.
                   </p>
                 </>
               )}
@@ -375,7 +370,7 @@ const schema = {
                   <h2>Elrenovering: Guide för husägare i Södertälje</h2>
                   <p>
                     Planerar du att renovera ditt hem? Elen är en kritisk del som kräver särskild 
-                    uppmärksamhet. Här är vår kompletta guide till elrenovering.
+                    uppmärksamhet. Här är några saker att tänka på vid elrenovering.
                   </p>
 
                   <h3>När behövs elrenovering?</h3>
@@ -383,7 +378,7 @@ const schema = {
                     Överväg elrenovering om:
                   </p>
                   <ul>
-                    <li>Huset är äldre än 25 år</li>
+                    <li>Huset har en äldre elinstallation</li>
                     <li>Du har återkommande problem med säkringar</li>
                     <li>Du planerar större renovering</li>
                     <li>Du vill installera moderna elsystem</li>
@@ -400,14 +395,12 @@ const schema = {
 
                   <h3>Kostnader för elrenovering</h3>
                   <p>
-                    Kostnaden varierar beroende på omfattning:
+                    Kostnaden varierar beroende på omfattning, till exempel om du behöver ny elcentral, omdragning av ledningar eller nya uttag och strömbrytare.
+                    Be om en skriftlig offert innan arbetet börjar.
                   </p>
-                  <ul>
-                    <li>Ny elcentral: 15 000-25 000 kr</li>
-                    <li>Omdragning av ledningar: 500-1000 kr/m²</li>
-                    <li>Nya uttag och strömbrytare: 1000-2000 kr/st</li>
-                    <li>ROT-avdrag kan användas</li>
-                  </ul>
+                  <p>
+                    {ROT_NOTE} Läs mer hos <a href={SKATTEVERKET_URL} rel="noopener noreferrer" target="_blank">Skatteverket</a>.
+                  </p>
 
                   <h2>Planering av elrenovering</h2>
                   <p>
@@ -420,10 +413,16 @@ const schema = {
                     <li>Tidsplan och budget</li>
                   </ul>
 
-                  <h2>Kontakta oss för elrenovering</h2>
+                  <h2>Kontrollera företaget</h2>
                   <p>
-                    Vi hjälper dig med allt från besiktning till färdig installation i Södertälje. 
-                    Kontakta oss för en kostnadsfri konsultation om din elrenovering.
+                    Elarbeten ska utföras av ett registrerat elinstallationsföretag. Du kan kontrollera ett företag i{' '}
+                    <a href={ELSAKERHETSVERKET_URL} rel="noopener noreferrer" target="_blank">Elsäkerhetsverkets register</a>.
+                  </p>
+
+                  <h2>Behöver du hjälp med elrenovering?</h2>
+                  <p>
+                    Beskriv ditt elarbete, så försöker vi koppla ihop dig med en lokal elektriker. Vi kan inte garantera att någon kan ta uppdraget.
+                    Det är gratis för dig och du förbinder dig inte till något. <a href="/kontakt">Skicka förfrågan</a>.
                   </p>
                 </>
               )}
@@ -454,8 +453,7 @@ const schema = {
                 <div>
                   <h3 class="text-lg font-bold">{post.author}</h3>
                   <p class="text-gray-600">
-                    Certifierad elektriker med över 15 års erfarenhet. 
-                    Expert inom {post.category.toLowerCase()} och elinstallationer.
+                    {DISCLOSURE} Artikeln är allmän information.
                   </p>
                 </div>
               </div>
@@ -498,13 +496,8 @@ const schema = {
 
               <!-- Contact Form -->
               <div class="bg-gray-50 rounded-lg p-6">
-                <h3 class="text-lg font-bold mb-4">Behöver du hjälp?</h3>
-                <p class="text-gray-600 mb-6">
-                  Kontakta oss för en kostnadsfri konsultation om {post.category.toLowerCase()}.
-                </p>
                 <ContactForm
-                  title="Få kostnadsfri offert"
-                  description={`Expert på ${post.category.toLowerCase()}`}
+                  title="Behöver du hjälp?"
                   submitLabel="Skicka förfrågan"
                 />
               </div>

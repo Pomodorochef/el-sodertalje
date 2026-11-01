@@ -1,0 +1,14 @@
+---
+import { EMERGENCY_NOTE } from '../lib/site';
+
+interface Props {
+  title?: string;
+}
+
+const { title = 'Akuta elproblem' } = Astro.props;
+---
+
+<div class="bg-primary-50 rounded-lg p-6" role="note">
+  <h3 class="text-xl font-bold text-primary-700 mb-2">{title}</h3>
+  <p class="text-gray-700">{EMERGENCY_NOTE}</p>
+</div>

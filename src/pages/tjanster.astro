@@ -4,124 +4,67 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import ContactForm from '../components/ContactForm.astro';
 import Hero from '../components/Hero.astro';
+import { DISCLOSURE, ELSAKERHETSVERKET_URL, EMERGENCY_NOTE, FREE_NOTE, ROT_NOTE, SKATTEVERKET_URL, WHAT_WE_DO, breadcrumbs } from '../lib/site';
 
 const SERVICES = [
   {
     id: 'elinstallation',
     title: 'Elinstallation',
-    description: 'Professionell installation av el i både hem och företag.',
-    longDescription: `Vi utför alla typer av elinstallationer i Södertälje med omnejd. Våra certifierade elektriker har lång erfarenhet av både små och stora projekt.
-
-    Våra installationstjänster inkluderar:
-    • Nyinstallation av el
-    • Utbyte av elcentral
-    • Installation av belysning
-    • Jordfelsbrytare och säkringar
-    • Felsökning och reparation`,
+    description: 'Installation av el i hem och företag.',
+    longDescription: `Du kan till exempel skicka förfrågan om:
+• Nyinstallation av el
+• Utbyte av elcentral
+• Installation av belysning
+• Jordfelsbrytare och säkringar
+• Felsökning och reparation`,
     icon: 'installation',
-    features: [
-      'Certifierade elektriker',
-      'Fasta priser',
-      'Snabb service',
-      'Garanti på arbetet',
-    ],
   },
   {
     id: 'elbilsladdare',
     title: 'Elbilsladdare',
-    description: 'Installation av laddboxar för alla typer av elbilar.',
-    longDescription: `Vi hjälper dig med installation av laddbox för din elbil. Vi erbjuder kompletta lösningar från ledande tillverkare och säkerställer en säker och effektiv installation.
-
-    Vi erbjuder:
-    • Kostnadsfri besiktning
-    • Rådgivning om lämplig laddbox
-    • Professionell installation
-    • Driftsättning och test`,
+    description: 'Installation av laddbox för elbil.',
+    longDescription: `Du kan till exempel skicka förfrågan om:
+• Råd om lämplig laddbox
+• Installation av laddbox
+• Driftsättning och test`,
     icon: 'charger',
-    features: [
-      'Alla typer av laddboxar',
-      'Framtidssäkrad installation',
-      'ROT-avdrag möjligt',
-      'Support efter installation',
-    ],
   },
   {
     id: 'akut-hjalp',
-    title: 'Akut hjälp',
-    description: 'Jour dygnet runt för akuta elärenden.',
-    longDescription: `När du behöver akut hjälp med el finns vi tillgängliga dygnet runt, alla dagar om året. Vi rycker ut snabbt och löser ditt problem.
-
-    Vanliga akutärenden:
-    • Strömavbrott
-    • Elfel
-    • Kortslutning
-    • Säkringar som löser ut
-    • Elolyckor`,
+    title: 'Akuta elproblem',
+    description: EMERGENCY_NOTE,
+    longDescription: '',
     icon: 'emergency',
-    features: [
-      'Tillgängliga 24/7',
-      'Snabb utryckning',
-      'Erfarna elektriker',
-      'Hela Södertälje',
-    ],
   },
   {
     id: 'renovering',
     title: 'Renovering',
-    description: 'Komplett elrenovering och uppgradering av äldre system.',
-    longDescription: `Vi hjälper dig att modernisera och säkra din elanläggning. Från mindre uppgraderingar till kompletta renoveringar av elsystem.
-
-    Våra renoveringstjänster:
-    • Byte av gamla elledningar
-    • Modernisering av elcentral
-    • Installation av jordfelsbrytare
-    • Uppgradering till modern standard
-    • Energieffektivisering`,
+    description: 'Elrenovering och uppgradering av äldre system.',
+    longDescription: `Du kan till exempel skicka förfrågan om:
+• Byte av gamla elledningar
+• Modernisering av elcentral
+• Installation av jordfelsbrytare
+• Uppgradering av äldre system`,
     icon: 'renovation',
-    features: [
-      'Kostnadsfri besiktning',
-      'Anpassade lösningar',
-      'Modern standard',
-      'Dokumentation',
-    ],
   },
 ];
 
-const schema = {
-  "@context": "https://schema.org",
-  "@type": "ItemList",
-  "itemListElement": SERVICES.map((service, index) => ({
-    "@type": "ListItem",
-    "position": index + 1,
-    "item": {
-      "@type": "Service",
-      "name": service.title,
-      "description": service.description,
-      "provider": {
-        "@type": "LocalBusiness",
-        "name": "Södertälje El",
-        "address": {
-          "@type": "PostalAddress",
-          "addressLocality": "Södertälje",
-          "addressRegion": "Stockholm",
-          "addressCountry": "SE"
-        }
-      }
-    }
-  }))
-};
+const schema = breadcrumbs([
+  { name: 'Hem', path: '/' },
+  { name: 'Tjänster', path: '/tjanster' },
+]);
 ---
 
 <Layout
-  title="Elektriker Södertälje - Elinstallation, Elbilsladdare & Akut Hjälp"
-  description="Auktoriserade elektriker i Södertälje. Vi utför elinstallationer, monterar elbilsladdare och erbjuder akut hjälp 24/7. ✓ ROT-avdrag ✓ Fast pris ✓ Fri offert"
+  title="Elektriker Södertälje - Skicka förfrågan om elinstallation och elbilsladdare"
+  description="Skicka förfrågan om elinstallation, elbilsladdare eller elrenovering i Södertälje, så försöker vi koppla ihop dig med en lokal elektriker. Vi är en förmedlingstjänst, inte en elfirma."
 >
   <Header slot="header" />
 
   <Hero
-    badge="Komplett elservice"
-    title="Professionella eltjänster i Södertälje"
-    description="Från akuta elfel till planerade installationer. Vi erbjuder snabb service, fasta priser och 100% nöjd-kund-garanti. Få hjälp av certifierade elektriker inom 60 minuter vid akuta ärenden."
+    badge="Förmedlingstjänst för elarbeten"
+    title="Elarbeten du kan skicka förfrågan om"
+    description={`${WHAT_WE_DO} ${DISCLOSURE}`}
     image="/images/services/hero.jpg"
     showCTA={true}
     showHighlights={true}
@@ -132,7 +75,7 @@ const schema = {
     <div class="container mx-auto px-4">
       <div class="grid md:grid-cols-2 gap-8">
         {SERVICES.map(service => (
-          <div class="bg-white rounded-lg shadow-sm overflow-hidden border border-gray-100">
+          <section id={service.id} class="scroll-mt-8 bg-white rounded-lg shadow-sm overflow-hidden border border-gray-100">
             <div class="p-8">
               <div class="w-12 h-12 bg-primary-100 text-primary-600 rounded-lg flex items-center justify-center mb-6">
                 {service.icon === 'installation' && (
@@ -160,64 +103,53 @@ const schema = {
               <h2 class="text-2xl font-bold mb-4">{service.title}</h2>
               <p class="text-gray-600 mb-6">{service.description}</p>
 
-              <div class="space-y-4">
-                {service.longDescription.split('\n\n').map(paragraph => (
-                  <div>
-                    {paragraph.includes('•') ? (
-                      <ul class="space-y-2">
-                        {paragraph.split('\n').map(line => (
-                          line.startsWith('•') ? (
-                            <li class="flex items-start">
-                              <span class="text-primary-600 mr-2">•</span>
-                              <span>{line.replace('•', '').trim()}</span>
-                            </li>
-                          ) : (
-                            <p class="text-gray-600 mb-2">{line}</p>
-                          )
-                        ))}
-                      </ul>
+              {service.longDescription && (
+                <div class="space-y-2">
+                  {service.longDescription.split('\n').map(line => (
+                    line.startsWith('•') ? (
+                      <p class="flex items-start">
+                        <span class="text-primary-600 mr-2">•</span>
+                        <span>{line.replace('•', '').trim()}</span>
+                      </p>
                     ) : (
-                      <p class="text-gray-600">{paragraph}</p>
-                    )}
-                  </div>
-                ))}
-              </div>
-
-              <div class="mt-8">
-                <h3 class="font-semibold mb-4">Det här ingår:</h3>
-                <ul class="grid grid-cols-2 gap-4">
-                  {service.features.map(feature => (
-                    <li class="flex items-center text-gray-600">
-                      <svg class="w-5 h-5 text-primary-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                      </svg>
-                      {feature}
-                    </li>
+                      <p class="text-gray-600 mb-2">{line}</p>
+                    )
                   ))}
-                </ul>
-              </div>
+                </div>
+              )}
 
-              <div class="mt-8 flex items-center justify-between">
-                <a
-                  href={`/tjanster/${service.id}`}
-                  class="inline-flex items-center text-primary-600 hover:text-primary-700"
-                >
-                  Läs mer
-                  <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                  </svg>
-                </a>
-
-                <a
-                  href="/kontakt"
-                  class="inline-flex items-center justify-center px-6 py-2 border border-transparent text-base font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700"
-                >
-                  Kontakta oss
-                </a>
-              </div>
+              {service.id !== 'akut-hjalp' && (
+                <div class="mt-8">
+                  <a
+                    href="/kontakt"
+                    class="inline-flex items-center justify-center px-6 py-2 border border-transparent text-base font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700"
+                  >
+                    Skicka förfrågan
+                  </a>
+                </div>
+              )}
             </div>
-          </div>
+          </section>
         ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Consumer advice -->
+  <section class="py-16 bg-gray-50">
+    <div class="container mx-auto px-4">
+      <div class="max-w-3xl mx-auto">
+        <h2 class="text-3xl font-bold mb-6 text-center">Bra att veta</h2>
+        <div class="prose prose-lg max-w-none">
+          <p>
+            Elarbeten ska utföras av ett registrerat elinstallationsföretag. Du kan kontrollera ett företag i
+            <a href={ELSAKERHETSVERKET_URL} rel="noopener noreferrer" target="_blank">Elsäkerhetsverkets register</a>.
+          </p>
+          <p>
+            {ROT_NOTE} För laddbox kan skattereduktion för grön teknik vara aktuell i stället. Läs mer hos
+            <a href={SKATTEVERKET_URL} rel="noopener noreferrer" target="_blank">Skatteverket</a>.
+          </p>
+        </div>
       </div>
     </div>
   </section>
@@ -228,13 +160,9 @@ const schema = {
       <div class="max-w-3xl mx-auto text-center">
         <h2 class="text-3xl font-bold mb-6 text-gray-900">Behöver du hjälp med elarbeten?</h2>
         <p class="text-xl text-gray-600 mb-8">
-          Vi erbjuder kostnadsfri konsultation och prisförslag. Kontakta oss idag!
+          {FREE_NOTE}
         </p>
-        <ContactForm
-          title="Kontakta oss"
-          description="Vi återkommer inom 24 timmar"
-          submitLabel="Skicka förfrågan"
-        />
+        <ContactForm />
       </div>
     </div>
   </section>

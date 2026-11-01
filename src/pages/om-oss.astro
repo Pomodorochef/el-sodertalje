@@ -4,83 +4,34 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import ContactForm from '../components/ContactForm.astro';
 import Hero from '../components/Hero.astro';
-
-const TEAM_MEMBERS = [
-  {
-    name: 'Anders Andersson',
-    role: 'VD & Elektriker',
-    description: 'Certifierad elektriker med över 20 års erfarenhet.',
-    certifications: ['Behörig installatör', 'Elbehörighet AB'],
-  },
-  {
-    name: 'Erik Eriksson',
-    role: 'Servicechef',
-    description: 'Ansvarig för våra servicetekniker och kundrelationer.',
-    certifications: ['Elinstallatör', 'Projektledare'],
-  },
-  {
-    name: 'Maria Svensson',
-    role: 'Elektriker',
-    description: 'Specialist på smarta hem och moderna elinstallationer.',
-    certifications: ['Certifierad installatör', 'KNX-specialist'],
-  },
-];
-
-const CERTIFICATIONS = [
-  {
-    name: 'Elsäkerhetsverket',
-    description: 'Auktoriserad elinstallatör',
-    icon: 'shield',
-  },
-  {
-    name: 'ISO 9001',
-    description: 'Kvalitetscertifiering',
-    icon: 'check',
-  },
-  {
-    name: 'Svensk Elstandard',
-    description: 'Följer alla svenska standarder',
-    icon: 'bolt',
-  },
-  {
-    name: 'F-skatt',
-    description: 'Registrerat företag',
-    icon: 'document',
-  },
-];
+import {
+  COMPANY_EMAIL,
+  COMPANY_NAME,
+  COMPANY_ORG_NR,
+  DISCLOSURE,
+  ELSAKERHETSVERKET_URL,
+  FREE_NOTE,
+  ORGANIZATION,
+  WHAT_WE_DO,
+} from '../lib/site';
 
 const schema = {
   "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "Södertälje El",
-  "description": "Auktoriserad elektriker i Södertälje med över 15 års erfarenhet.",
-  "foundingDate": "2008",
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "[Street]",
-    "addressLocality": "Södertälje",
-    "postalCode": "151 XX",
-    "addressCountry": "SE"
-  },
-  "employee": TEAM_MEMBERS.map(member => ({
-    "@type": "Person",
-    "name": member.name,
-    "jobTitle": member.role,
-    "description": member.description
-  }))
+  ...ORGANIZATION,
+  "description": `Förmedlingstjänst för elarbeten i Södertälje. ${DISCLOSURE}`,
 };
 ---
 
 <Layout
-  title="Din Lokala Elektriker i Södertälje | 15 års erfarenhet | Södertälje El"
-  description="Välj en pålitlig elektriker i Södertälje med 15 års erfarenhet. ✓ Auktoriserade elektriker ✓ 1000+ nöjda kunder ✓ Jour dygnet runt ✓ Kostnadsfri offert"
+  title="Om oss | Elektriker Södertälje | Förmedlingstjänst"
+  description="Elektriker-södertälje.se drivs av Kuruto AB. Vi är en förmedlingstjänst, inte en elfirma. Vi utför inga elarbeten själva."
 >
   <Header slot="header" />
 
   <Hero
-    badge="15 års erfarenhet"
-    title="Din pålitliga elektriker i Södertälje"
-    description="Över 1000 nöjda kunder och 15 års erfarenhet gör oss till det självklara valet för elarbeten. Certifierade elektriker, fasta priser och jour dygnet runt för din trygghet."
+    badge="Om tjänsten"
+    title="Vi är en förmedlingstjänst"
+    description={DISCLOSURE}
     image="/images/about/hero.jpg"
     showCTA={true}
     showHighlights={true}
@@ -89,91 +40,45 @@ const schema = {
   <!-- Company Info -->
   <section class="py-16">
     <div class="container mx-auto px-4">
-      <div class="grid md:grid-cols-2 gap-12 items-center">
+      <div class="grid md:grid-cols-2 gap-12 items-start">
         <div>
-          <h2 class="text-3xl font-bold mb-6">Om Södertälje El</h2>
+          <h2 class="text-3xl font-bold mb-6">Om tjänsten</h2>
           <div class="prose prose-lg">
-            <p>
-              Södertälje El grundades 2008 med målet att erbjuda högkvalitativa eltjänster till rimliga priser. 
-              Sedan dess har vi vuxit till att bli en av de mest betrodda elektrikerna i Södertälje-området.
-            </p>
-            <p>
-              Vi är stolta över att kunna erbjuda:
-            </p>
-            <ul>
-              <li>Snabb och pålitlig service</li>
-              <li>Certifierade och erfarna elektriker</li>
-              <li>Modern utrustning och teknik</li>
-              <li>Konkurrenskraftiga priser</li>
-              <li>Nöjd-kund-garanti på alla arbeten</li>
-            </ul>
+            <p>{DISCLOSURE}</p>
+            <p>{WHAT_WE_DO} {FREE_NOTE}</p>
+            <p>Vi kan inte säga när eller om du får svar från en elektriker. Offert, pris och utförande kommer du i så fall överens om direkt med elektrikern.</p>
           </div>
         </div>
-        <div class="grid grid-cols-2 gap-6">
-          {CERTIFICATIONS.map(cert => (
-            <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
-              <div class="text-primary-600 mb-4">
-                {cert.icon === 'shield' && (
-                  <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                  </svg>
-                )}
-                {cert.icon === 'check' && (
-                  <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                )}
-                {cert.icon === 'bolt' && (
-                  <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-                  </svg>
-                )}
-                {cert.icon === 'document' && (
-                  <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                  </svg>
-                )}
-              </div>
-              <h3 class="text-lg font-semibold mb-2">{cert.name}</h3>
-              <p class="text-gray-600">{cert.description}</p>
+        <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+          <h3 class="text-lg font-semibold mb-4">Vem står bakom?</h3>
+          <dl class="space-y-3 text-gray-600">
+            <div>
+              <dt class="font-medium text-gray-900">Företag</dt>
+              <dd>{COMPANY_NAME}</dd>
             </div>
-          ))}
+            <div>
+              <dt class="font-medium text-gray-900">Org.nr</dt>
+              <dd>{COMPANY_ORG_NR}</dd>
+            </div>
+            <div>
+              <dt class="font-medium text-gray-900">E-post</dt>
+              <dd><a href={`mailto:${COMPANY_EMAIL}`} class="text-primary-600 hover:underline">{COMPANY_EMAIL}</a></dd>
+            </div>
+          </dl>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Team Section -->
+  <!-- Consumer advice -->
   <section class="py-16 bg-gray-50">
     <div class="container mx-auto px-4">
-      <div class="text-center mb-12">
-        <h2 class="text-3xl font-bold mb-4">Vårt team</h2>
-        <p class="text-gray-600 max-w-2xl mx-auto">
-          Möt våra erfarna elektriker som ser till att du får bästa möjliga service och kvalitet på alla elarbeten.
+      <div class="max-w-3xl mx-auto text-center">
+        <h2 class="text-3xl font-bold mb-4">Kontrollera den du anlitar</h2>
+        <p class="text-gray-600">
+          Elarbeten ska utföras av ett registrerat elinstallationsföretag. Du kan kontrollera ett företag i
+          <a href={ELSAKERHETSVERKET_URL} class="text-primary-600 hover:underline" rel="noopener noreferrer" target="_blank">Elsäkerhetsverkets register</a>.
         </p>
-      </div>
-
-      <div class="grid md:grid-cols-3 gap-8">
-        {TEAM_MEMBERS.map(member => (
-          <div class="bg-white rounded-lg shadow-sm p-6">
-            <div class="text-center mb-6">
-              <div class="w-24 h-24 bg-gray-200 rounded-full mx-auto mb-4"></div>
-              <h3 class="text-xl font-bold">{member.name}</h3>
-              <p class="text-primary-600">{member.role}</p>
-            </div>
-            <p class="text-gray-600 mb-4">{member.description}</p>
-            <div class="space-y-2">
-              {member.certifications.map(cert => (
-                <div class="flex items-center text-sm text-gray-600">
-                  <svg class="w-5 h-5 text-primary-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                  </svg>
-                  {cert}
-                </div>
-              ))}
-            </div>
-          </div>
-        ))}
       </div>
     </div>
   </section>
@@ -182,11 +87,8 @@ const schema = {
   <section id="contact" class="py-16">
     <div class="container mx-auto px-4">
       <div class="max-w-2xl mx-auto text-center mb-12">
-        <h2 class="text-3xl font-bold mb-4">Kontakta oss</h2>
-        <p class="text-gray-600">
-          Har du frågor om våra tjänster eller vill boka en elektriker? 
-          Vi återkommer med en offert inom 24 timmar.
-        </p>
+        <h2 class="text-3xl font-bold mb-4">Skicka förfrågan</h2>
+        <p class="text-gray-600">{FREE_NOTE}</p>
       </div>
       <ContactForm />
     </div>
@@ -196,4 +98,4 @@ const schema = {
 
   <!-- Schema.org JSON-LD -->
   <script type="application/ld+json" set:html={JSON.stringify(schema)} />
-</Layout> 
+</Layout>

@@ -3,13 +3,14 @@ import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import ContactForm from '../components/ContactForm.astro';
-import GoogleMap from '../components/GoogleMap.astro';
+import EmergencyNotice from '../components/EmergencyNotice.astro';
 import Hero from '../components/Hero.astro';
+import { DISCLOSURE, EMERGENCY_NOTE, ORGANIZATION, WHAT_WE_DO } from '../lib/site';
 
 const SERVICES = [
   {
     title: 'Elinstallation',
-    description: 'Professionell installation av el i både hem och företag.',
+    description: 'Installation av el i hem och företag.',
     icon: 'installation',
   },
   {
@@ -18,77 +19,41 @@ const SERVICES = [
     icon: 'charger',
   },
   {
-    title: 'Akut hjälp',
-    description: 'Jour dygnet runt för akuta elärenden.',
+    title: 'Akuta elproblem',
+    description: EMERGENCY_NOTE,
     icon: 'emergency',
   },
   {
     title: 'Renovering',
-    description: 'Komplett elrenovering och uppgradering av äldre system.',
+    description: 'Elrenovering och uppgradering av äldre system.',
     icon: 'renovation',
   },
 ];
 
 const TRUST_SIGNALS = [
-  { number: '1000+', label: 'Nöjda kunder' },
-  { number: '15+', label: 'Års erfarenhet' },
-  { number: '24/7', label: 'Akut service' },
-  { number: '100%', label: 'Certifierade elektriker' },
+  { number: '1', label: 'Du beskriver ditt elarbete' },
+  { number: '2', label: 'Vi försöker koppla ihop dig med en lokal elektriker' },
+  { number: '3', label: 'Du bestämmer själv om du vill gå vidare' },
+  { number: '0 kr', label: 'Gratis för dig, utan förpliktelse' },
 ];
 
 const schema = {
   "@context": "https://schema.org",
-  "@type": "LocalBusiness",
-  "name": "Elektriker Södertälje",
-  "image": "https://elektriker-södertälje.se/images/logo.png",
-  "description": "Professionella elektriker i Södertälje. Vi erbjuder elinstallation, elbilsladdare, akut hjälp och renovering.",
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "[Street]",
-    "addressLocality": "Södertälje",
-    "postalCode": "151 XX",
-    "addressCountry": "SE"
-  },
-  "geo": {
-    "@type": "GeoCoordinates",
-    "latitude": "59.1954",
-    "longitude": "17.6255"
-  },
-  "url": "https://elektriker-södertälje.se",
-  "email": "info@elektriker-södertälje.se",
-  "telephone": "08-123 456 78",
-  "openingHoursSpecification": [
-    {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": [
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday"
-      ],
-      "opens": "07:00",
-      "closes": "16:00"
-  }
-  ],
-  "sameAs": [
-    "https://facebook.com/",
-    "https://instagram.com/",
-    "https://linkedin.com/"
-  ]
+  ...ORGANIZATION,
+  "description": `Förmedlingstjänst för elarbeten i Södertälje. ${DISCLOSURE}`,
 };
 ---
 
 <Layout 
-  title="Elektriker Södertälje | Jour 24/7 | Fast Pris | Elektriker Södertälje"
-  description="Din lokala elektriker i Södertälje ✓ Jour dygnet runt ✓ Snabb service ✓ Fast pris ✓ Certifierade elektriker. Ring 08-123 456 78 för akut hjälp!"
+  title="Elektriker Södertälje | Skicka förfrågan | Förmedlingstjänst"
+  description="Behöver du elektriker i Södertälje? Beskriv ditt elarbete, så försöker vi koppla ihop dig med en lokal elektriker. Gratis för dig. Vi är en förmedlingstjänst, inte en elfirma."
 >
   <Header slot="header" />
   
   <Hero
-    badge="Din lokala elektriker"
-    title="Elektriker i Södertälje – Få Hjälp Snabbt"
-    description="Certifierade elektriker med jour dygnet runt. Fast pris och snabb service i hela Södertälje med omnejd."
+    badge="Förmedlingstjänst för elarbeten"
+    title="Elektriker i Södertälje – skicka en förfrågan"
+    description={`${WHAT_WE_DO} ${DISCLOSURE}`}
     image="/images/hero.jpg"
     showCTA={true}
     showHighlights={true}
@@ -111,7 +76,7 @@ const schema = {
   <!-- Services -->
   <section class="py-16">
     <div class="container mx-auto px-4">
-      <h2 class="text-3xl font-bold text-center mb-12">Våra tjänster</h2>
+      <h2 class="text-3xl font-bold text-center mb-12">Elarbeten du kan skicka förfrågan om</h2>
       <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
         {SERVICES.map(service => (
           <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
@@ -146,21 +111,27 @@ const schema = {
     </div>
   </section>
 
+  <!-- Emergency guidance -->
+  <section class="pb-16">
+    <div class="container mx-auto px-4">
+      <div class="max-w-2xl mx-auto">
+        <EmergencyNotice />
+      </div>
+    </div>
+  </section>
+
   <!-- Contact Form Section -->
   <section id="contact" class="py-16 bg-gray-50">
     <div class="container mx-auto px-4">
       <div class="max-w-2xl mx-auto text-center mb-12">
-        <h2 class="text-3xl font-bold mb-4">Kontakta oss</h2>
+        <h2 class="text-3xl font-bold mb-4">Skicka förfrågan</h2>
         <p class="text-gray-600">
-          Behöver du hjälp med elarbete? Fyll i formuläret så återkommer vi med en offert inom 24 timmar.
+          Det är gratis för dig och du förbinder dig inte till något.
         </p>
       </div>
       <ContactForm />
     </div>
   </section>
-
-  <!-- Service Area Map -->
-  <GoogleMap />
 
   <Footer slot="footer" />
 
