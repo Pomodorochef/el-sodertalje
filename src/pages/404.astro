@@ -2,11 +2,12 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import { EMERGENCY_NOTE } from '../lib/site';
 ---
 
 <Layout
-  title="Sidan hittades inte | Elektriker Södertälje | Jour 24/7"
-  description="Sidan kunde inte hittas, men vi hjälper dig med alla elärenden i Södertälje. Ring 08-123 456 78 för akut hjälp dygnet runt. ✓ Snabb service ✓ Fast pris"
+  title="Sidan hittades inte | Elektriker Södertälje"
+  description="Sidan kunde inte hittas. Gå till startsidan eller skicka en förfrågan om ditt elarbete i Södertälje."
 >
   <Header slot="header" />
 
@@ -16,20 +17,20 @@ import Footer from '../components/Footer.astro';
         <h1 class="text-4xl md:text-5xl font-bold mb-6">Hoppsan! Sidan hittades inte</h1>
         
         <p class="text-xl text-gray-600 mb-8">
-          Tyvärr kunde vi inte hitta sidan du letade efter. Men oroa dig inte - vi är här för att hjälpa!
+          Tyvärr kunde vi inte hitta sidan du letade efter.
         </p>
 
         <div class="bg-white rounded-lg p-8 shadow-sm border border-gray-100 mb-8">
-          <h2 class="text-2xl font-bold mb-4">Behöver du akut hjälp?</h2>
+          <h2 class="text-2xl font-bold mb-4">Akuta elproblem</h2>
           <p class="text-gray-600 mb-6">
-            Vi har jour dygnet runt och kan vara på plats inom 60 minuter vid akuta elfel.
+            {EMERGENCY_NOTE}
           </p>
           <div class="flex flex-col sm:flex-row justify-center gap-4">
             <a
-              href="tel:08-123 456 78"
+              href="/kontakt"
               class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700"
             >
-              Ring jour: 08-123 456 78
+              Skicka förfrågan
             </a>
             <a
               href="/"
@@ -55,12 +56,12 @@ import Footer from '../components/Footer.astro';
             </li>
             <li>
               <a href="/tjanster#akut-hjalp" class="block p-4 bg-white rounded-lg border border-gray-100 hover:border-primary-100 hover:shadow-sm">
-                Akut Elservice
+                Akuta elproblem
               </a>
             </li>
             <li>
               <a href="/kontakt" class="block p-4 bg-white rounded-lg border border-gray-100 hover:border-primary-100 hover:shadow-sm">
-                Kontakta oss
+                Skicka förfrågan
               </a>
             </li>
           </ul>

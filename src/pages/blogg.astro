@@ -3,79 +3,16 @@ import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import Hero from '../components/Hero.astro';
-
-const BLOG_POSTS = [
-  {
-    id: 'elbilsladdare-guide-sodertalje',
-    title: 'Komplett Guide: Installation av Elbilsladdare i Södertälje 2024',
-    description: 'Allt om installation av elbilsladdare i Södertälje. Priser, ROT-avdrag, olika typer av laddboxar och vad du behöver veta innan installation. Expert guide från certifierade elektriker.',
-    image: '/images/blog/elbilsladdare.jpg',
-    date: '2024-03-15',
-    author: 'Anders Andersson',
-    category: 'Elbilsladdare',
-    tags: ['elbilsladdare', 'installation', 'guide', 'södertälje', 'rot-avdrag'],
-    readTime: '8 min',
-  },
-  {
-    id: 'elsakerhet-hemmet-guide',
-    title: 'Elsäkerhet i Hemmet: 10 Viktiga Tips från Elektriker i Södertälje',
-    description: 'Expertguide om elsäkerhet i hemmet från auktoriserade elektriker. Lär dig upptäcka vanliga elfel, förebygga olyckor och när du måste kontakta en elektriker.',
-    image: '/images/blog/elsakerhet.jpg',
-    date: '2024-03-10',
-    author: 'Maria Svensson',
-    category: 'Elsäkerhet',
-    tags: ['elsäkerhet', 'tips', 'underhåll', 'jordfelsbrytare', 'södertälje'],
-    readTime: '6 min',
-  },
-  {
-    id: 'smart-belysning-energibesparing',
-    title: 'Smart Belysning: Spara Energi & Pengar i Södertälje 2024',
-    description: 'Guide till smart belysning och energibesparing. Lär dig välja rätt system, installationstips och hur du kan spara upp till 80% på belysningskostnader.',
-    image: '/images/blog/smart-belysning.jpg',
-    date: '2024-03-05',
-    author: 'Erik Eriksson',
-    category: 'Smart Hem',
-    tags: ['smart belysning', 'energibesparing', 'installation', 'södertälje'],
-    readTime: '7 min',
-  },
-  {
-    id: 'jordfelsbrytare-guide',
-    title: 'Jordfelsbrytare: Komplett Guide för Husägare i Södertälje',
-    description: 'Allt du behöver veta om jordfelsbrytare. Installation, funktion, lagkrav och varför de är livsviktiga för ditt hem. Expert guide från certifierade elektriker.',
-    image: '/images/blog/jordfelsbrytare.jpg',
-    date: '2024-02-28',
-    author: 'Anders Andersson',
-    category: 'Elsäkerhet',
-    tags: ['jordfelsbrytare', 'elsäkerhet', 'installation', 'södertälje'],
-    readTime: '5 min',
-  },
-  {
-    id: 'elrenovering-tips',
-    title: 'Elrenovering i Södertälje: Kostnader & Tips 2024',
-    description: 'Planerar du elrenovering? Få expertråd om kostnader, vanliga fallgropar, ROT-avdrag och vad du bör tänka på. Guide från erfarna elektriker i Södertälje.',
-    image: '/images/blog/elrenovering.jpg',
-    date: '2024-02-20',
-    author: 'Maria Svensson',
-    category: 'Renovering',
-    tags: ['elrenovering', 'rot-avdrag', 'kostnader', 'södertälje'],
-    readTime: '9 min',
-  },
-];
+import { BLOG_POSTS } from '../data/blogPosts';
+import { ORGANIZATION } from '../lib/site';
 
 const schema = {
   "@context": "https://schema.org",
   "@type": "Blog",
   "name": "Elektriker Södertälje Blog",
-  "description": "Expertråd och tips om elinstallation, elsäkerhet och energibesparing från auktoriserade elektriker i Södertälje.",
+  "description": "Allmänna råd och tips om elinstallation, elsäkerhet och energibesparing.",
   "url": "https://elektriker-södertälje.se/blogg",
-  "publisher": {
-    "@type": "Organization",
-    "name": "Södertälje El",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://elektriker-södertälje.se/images/logo.png"
-    }
-  },
+  "publisher": ORGANIZATION,
   "blogPost": BLOG_POSTS.map(post => ({
     "@type": "BlogPosting",
     "headline": post.title,
@@ -83,18 +20,8 @@ const schema = {
     "image": `https://elektriker-södertälje.se${post.image}`,
     "datePublished": post.date,
     "dateModified": post.date,
-    "author": {
-      "@type": "Person",
-      "name": post.author
-    },
-    "publisher": {
-      "@type": "Organization",
-      "name": "Södertälje El",
-      "logo": {
-        "@type": "ImageObject",
-        "url": "https://elektriker-södertälje.se/images/logo.png"
-      }
-    },
+    "author": ORGANIZATION,
+    "publisher": ORGANIZATION,
     "mainEntityOfPage": {
       "@type": "WebPage",
       "@id": `https://elektriker-södertälje.se/blogg/${post.id}`
@@ -107,15 +34,15 @@ const schema = {
 ---
 
 <Layout
-  title="Eltips & Råd | Elektriker Södertälje | Expert Guide & Nyheter"
-  description="Expertråd om el från auktoriserade elektriker i Södertälje. Läs om elinstallation, elbilsladdare, elsäkerhet & energibesparing. Uppdaterade guider & tips."
+  title="Eltips & Råd | Elektriker Södertälje | Guider & Tips"
+  description="Allmänna råd om el i hemmet. Läs om elinstallation, elbilsladdare, elsäkerhet och energibesparing. Guider och tips från Elektriker Södertälje, en förmedlingstjänst."
 >
   <Header slot="header" />
 
   <Hero
-    badge="Expert elkunskap & tips"
-    title="Expertråd från certifierade elektriker"
-    description="Få professionella tips om elinstallation, säkerhet och energibesparing. Våra erfarna elektriker delar med sig av kunskap som hjälper dig göra smarta val för ditt hem eller företag."
+    badge="Guider och tips"
+    title="Råd och tips om el"
+    description="Allmänna tips om elinstallation, säkerhet och energibesparing som hjälper dig göra bra val för ditt hem eller företag."
     image="/images/blog/hero.jpg"
     showCTA={true}
     showHighlights={true}
@@ -193,7 +120,7 @@ const schema = {
   <section class="py-16 bg-gray-50">
     <div class="container mx-auto px-4">
       <div class="max-w-4xl mx-auto">
-        <h2 class="text-3xl font-bold mb-8 text-center">Expertguider & Tips</h2>
+        <h2 class="text-3xl font-bold mb-8 text-center">Guider & Tips</h2>
         
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {Array.from(new Set(BLOG_POSTS.map(post => post.category))).map(category => {
@@ -203,9 +130,9 @@ const schema = {
                 <h3 class="text-xl font-bold mb-4">{category}</h3>
                 <p class="text-gray-600 mb-4">
                   {category === 'Elbilsladdare' && 'Guider om installation och val av elbilsladdare för hem och företag.'}
-                  {category === 'Elsäkerhet' && 'Tips och råd för ett elsäkert hem från certifierade elektriker.'}
+                  {category === 'Elsäkerhet' && 'Tips och råd för ett elsäkert hem.'}
                   {category === 'Smart Hem' && 'Moderna lösningar för ett smartare och energieffektivare hem.'}
-                  {category === 'Renovering' && 'Expertråd om elrenovering, kostnader och ROT-avdrag.'}
+                  {category === 'Renovering' && 'Råd om elrenovering, kostnader och ROT-avdrag.'}
                 </p>
                 <ul class="space-y-3">
                   {categoryPosts.map(post => (
