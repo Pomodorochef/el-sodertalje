@@ -3,7 +3,6 @@ import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import EmergencyNotice from '../components/EmergencyNotice.astro';
-import { COMPANY_EMAIL } from '../lib/site';
 ---
 
 <Layout
@@ -36,8 +35,8 @@ import { COMPANY_EMAIL } from '../lib/site';
         </div>
 
         <p class="text-gray-600">
-          Frågor om tjänsten eller dina uppgifter? Skriv till
-          <a href={`mailto:${COMPANY_EMAIL}`} class="text-primary-600 hover:underline">{COMPANY_EMAIL}</a>.
+          Frågor om tjänsten eller dina uppgifter? Skriv till oss via
+          <a href="/kontakt" class="text-primary-600 hover:underline">kontaktformuläret</a>.
         </p>
 
         <div class="mt-12">

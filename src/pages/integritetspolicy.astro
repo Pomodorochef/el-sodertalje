@@ -2,7 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import { COMPANY_EMAIL, COMPANY_NAME, COMPANY_ORG_NR } from '../lib/site';
+import { COMPANY_NAME, COMPANY_ORG_NR } from '../lib/site';
 ---
 
 <Layout
@@ -19,7 +19,7 @@ import { COMPANY_EMAIL, COMPANY_NAME, COMPANY_ORG_NR } from '../lib/site';
         <h2>Personuppgiftsansvarig</h2>
         <p>
           {COMPANY_NAME}, org.nr {COMPANY_ORG_NR}, är personuppgiftsansvarig för de uppgifter du lämnar på webbplatsen.
-          Kontakt: <a href={`mailto:${COMPANY_EMAIL}`}>{COMPANY_EMAIL}</a>.
+          Kontakt: via <a href="/kontakt">kontaktformuläret</a>.
         </p>
 
         <h2>Uppgifter vi behandlar</h2>
@@ -44,7 +44,7 @@ import { COMPANY_EMAIL, COMPANY_NAME, COMPANY_ORG_NR } from '../lib/site';
 
         <h2>Dina rättigheter</h2>
         <p>
-          Du kan begära tillgång till, rättelse eller radering av dina uppgifter, begära begränsning av behandlingen, invända mot den eller återkalla ditt samtycke. Skriv till <a href={`mailto:${COMPANY_EMAIL}`}>{COMPANY_EMAIL}</a>.
+          Du kan begära tillgång till, rättelse eller radering av dina uppgifter, begära begränsning av behandlingen, invända mot den eller återkalla ditt samtycke. Skriv till oss via <a href="/kontakt">kontaktformuläret</a>.
           Du kan också klaga hos Integritetsskyddsmyndigheten (IMY).
         </p>
       </div>

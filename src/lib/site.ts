@@ -2,7 +2,6 @@
 export const SITE_URL = 'https://elektriker-södertälje.se';
 export const COMPANY_NAME = 'Kuruto AB';
 export const COMPANY_ORG_NR = '559400-0928';
-export const COMPANY_EMAIL = 'eric@kuruto.se';
 export const ELSAKERHETSVERKET_URL = 'https://www.elsakerhetsverket.se';
 export const SKATTEVERKET_URL = 'https://www.skatteverket.se';
 
@@ -16,7 +15,6 @@ export const ORGANIZATION = {
   '@type': 'Organization',
   name: COMPANY_NAME,
   url: SITE_URL,
-  email: COMPANY_EMAIL,
   taxID: COMPANY_ORG_NR,
 };
 
